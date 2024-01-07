@@ -1,0 +1,65 @@
+= C Projects
+
+== Formalities
+
+You have to choose one of the projects from <<specs,below>> (and submit this selection in Moodle!).
+Each project specification comprises a main task and several subtasks.
+You have to implement the main task and as many other tasks as you like.
+The maximum number of points is given below and varies by difficulty of the project.
+
+Please also keep in mind that some points might be deducted during the exercise interview if you cannot answer our questions or your solution does not comply to the specification -> don't aim for exactly 50% in total because it will most likely make you fail the course.
+
+=== Grading criteria
+
+* The program must be compilable in the provided VM.
+* The main task of your project as described in the specification has to be completely implemented and working.
+* Each warning when compiled with `gcc -std=c99 -Wall -Wextra -pedantic -Wno-unused-parameter` will reduce your score by 5 points.
+* Stick to link:https://cloud.technikum-wien.at/s/mo8GZqX6WtEeQyQ/download[our coding conventions] (up to 15% reduction of points).
+* Comment all functions using link:http://www.doxygen.nl/[Doxygen] (up to 15% reduction of points).
+  See the `link:doxygen[]` sub-directory for an example.
+* Prepare to answer theoretical and project-related questions during the final interview.
+* Plagiarism is not tolerated.
+  Copying code snippets for specific small problems (e.g., from Stackexchange) is OK *if* the source is given in a comment *and* you can explain them.
+* Further topics that will be reflected in the final result in form of bonuses or deductions:
+** Software architecture and structure of your program
+** Usage of appropriate data types
+** Proper usage of control structures (loops and conditions)
+** Correct error handling
+** Resource handling, clean dynamic memory management
+** Input handling and security
+
+=== Submission
+
+* Submit your solution by the deadline stated in Moodle as an archive containing all source files needed including any configuration files but without anything else especially object files and binaries.
+  This can easily be done by using the "File/Export.../General/Archive File" functionality of Eclipse and selecting _only_ the `src` directory.
+* The archive must contain a `README.md` text file (cf. the `link:doxygen[]` example) containing the following sections.
+** *Compilation*
+  *** State any libraries that need to be linked to your application apart from the C standard library (e.g., `ncurses`).
+  *** State any other special external requirements to build your application (e.g., preprocessor defines to be supplied on the command line).
+** *Execution*
+  *** Explain how your application is supposed to be started. 
+      This should be roughly resembling the common usage message printed by command line programs.
+      *Iff* your application prints such a message when `-h` is supplied as parameter you can leave this out.
+  *** Give a quick overview about the user inputs your application awaits at runtime.
+      *Iff* your application is completely self-explanatory (i.e., if it clearly prints when the user is supposed to enter something _and_ the required format) you can leave this out.
+** *Completed Tasks*
+  *** State which tasks of the problem specification (you think) you have solved.
+      Only points of tasks stated here are attainable in the end result.
+  *** _Shortly_ describe any noteworthy additional features that you may have implemented.
+
+== Project specifications[[specs]]
+
+If not stated otherwise any user input is to be read in from the command line arguments (`argv`).
+
+* link:110_mastermind/README{outfilesuffix}[Mastermind (max. 110)]
+* link:115_tictactoe/README{outfilesuffix}[TicTacToe (max. 115)]
+* link:120_battleships/README{outfilesuffix}[Battleships (max. 120)]
+* link:120_pixdiff/README{outfilesuffix}[Picture Differences (max. 120)]
+* link:125_hangman/README{outfilesuffix}[Hangman (max. 125)]
+* link:130_image_filter/README{outfilesuffix}[Image Filter (max. 130)]
+* link:130_meme_generator/README{outfilesuffix}[Meme Generator (max. 130)]
+* link:130_minesweeper/README{outfilesuffix}[Minesweeper (max. 130)]
+* link:135_poker_dice/README{outfilesuffix}[Poker Dice (max. 135)]
+* link:135_recipes/README{outfilesuffix}[Recipes Collection (max. 135)]
+* link:140_hashcount/README{outfilesuffix}[Hash Count (max. 140)]
+* link:140_phone_billing_system/README{outfilesuffix}[Phone Billing System (max. 140)]
