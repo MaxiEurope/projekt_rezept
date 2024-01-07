@@ -34,10 +34,30 @@ int main() {
     }
 
     cJSON* recipe = cJSON_GetObjectItem(json, "recipe");
-    if (recipe != NULL && cJSON_IsObject(recipe)) {
-        cJSON* name = cJSON_GetObjectItem(recipe, "name");
-        if (name != NULL && cJSON_IsString(name)) {
-            printf("Name: %s\n", name->valuestring);
+    if (recipe == NULL || !cJSON_IsObject(recipe)) {
+        return printf("Failed to get recipe.\n");
+    }
+    
+    cJSON* name = cJSON_GetObjectItem(recipe, "name");
+    if (name != NULL && cJSON_IsString(name)) {
+        printf("Name: %s\n", name->valuestring);
+    }
+    cJSON* ingredients = cJSON_GetObjectItem(recipe, "ingredients");
+    if (ingredients != NULL && cJSON_IsArray(ingredients)) {
+        int numIngredients = cJSON_GetArraySize(ingredients);
+        printf("Ingredients:\n");
+        for (int i = 0; i < numIngredients; i++) {
+            cJSON* ingredient = cJSON_GetArrayItem(ingredients, i);
+            cJSON* ingredientName = cJSON_GetObjectItem(ingredient, "name");
+            cJSON* ingredientQuantity = cJSON_GetObjectItem(ingredient, "quantity");
+            if (ingredientName != NULL && cJSON_IsString(ingredientName)) {
+                printf("- %s", ingredientName->valuestring);
+                if (ingredientQuantity != NULL && cJSON_IsString(ingredientQuantity)) {
+                    printf(", Quantity: %s\n", ingredientQuantity->valuestring);
+                } else {
+                    printf("\n");
+                }
+            }
         }
     }
 
