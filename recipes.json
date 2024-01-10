@@ -1,46 +1,43 @@
-{
-    "recipe": {
-        "name": "Chocolate Cake",
-        "ingredients": [
-            {
-                "name": "Schokolade, zartbitter",
-                "quantity": "125 g"
-            },
-            {
-                "name": "Schokolade, Vollmilch",
-                "quantity": "125 g"
-            },
-            {
-                "name": "Eier",
-                "quantity": "2"
-            },
-            {
-                "name": "Zucker",
-                "quantity": "125 g"
-            },
-            {
-                "name": "Vanillezucker",
-                "quantity": "1 Beutel"
-            },
-            {
-                "name": "Kakaopulver",
-                "quantity": "50 g"
-            },
-            {
-                "name": "Mehl",
-                "quantity": "125 g"
-            },
-            {
-                "name": "Butter",
-                "quantity": "125 g"
-            },
-            {
-                "name": "Schlagobers",
-                "quantity": "125 g"
-            },
-            {
-                "name": "Fett fuer die Form"
-            }
-        ]
-    }
-}
+[{
+    "name": "Chocolate Cake",
+    "ingredients": [{
+            "name": "Schokolade, zartbitter",
+            "quantity": "125 g"
+        },
+        {
+            "name": "Schokolade, Vollmilch",
+            "quantity": "125 g"
+        },
+        {
+            "name": "Eier",
+            "quantity": "2"
+        },
+        {
+            "name": "Zucker",
+            "quantity": "125 g"
+        },
+        {
+            "name": "Vanillezucker",
+            "quantity": "1 Beutel"
+        },
+        {
+            "name": "Kakaopulver",
+            "quantity": "50 g"
+        },
+        {
+            "name": "Mehl",
+            "quantity": "125 g"
+        },
+        {
+            "name": "Butter",
+            "quantity": "125 g"
+        },
+        {
+            "name": "Schlagobers",
+            "quantity": "125 g"
+        },
+        {
+            "name": "Fett fuer die Form"
+        }
+    ]
+}]
