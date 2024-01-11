@@ -4,7 +4,7 @@
 char* readfile(const char* filepath) {
     FILE* file = fopen(filepath, "r");
     if (file == NULL) {
-        printf("Failed to open the file.\n");
+        printf("Ein Fehler ist beim Lesen der Datei aufgetreten.\n");
         return NULL;
     }
 
