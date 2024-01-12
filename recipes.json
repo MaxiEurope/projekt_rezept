@@ -1,87 +1,87 @@
 [{
-    "name": "Chocolate Cake",
-    "ingredients": [{
-            "name": "Schokolade, zartbitter",
-            "quantity": "125 g"
-        },
-        {
-            "name": "Schokolade, Vollmilch",
-            "quantity": "125 g"
-        },
-        {
-            "name": "Eier",
-            "quantity": "2"
-        },
-        {
-            "name": "Zucker",
-            "quantity": "125 g"
-        },
-        {
-            "name": "Vanillezucker",
-            "quantity": "1 Beutel"
-        },
-        {
-            "name": "Kakaopulver",
-            "quantity": "50 g"
-        },
-        {
-            "name": "Mehl",
-            "quantity": "125 g"
-        },
-        {
-            "name": "Butter",
-            "quantity": "125 g"
-        },
-        {
-            "name": "Schlagobers",
-            "quantity": "125 g"
-        },
-        {
-            "name": "Fett fuer die Form"
-        }
-    ],
-    "instructions": "Die Zartbitterschokolade mit der Butter in einem Wasserbad schmelzen und etwas abkuehlen lassen. Die Eier mit dem Zucker und dem Vanillezucker schaumig schlagen bis eine cremige Masse entsteht. Das Mehl und das Kakaopulver vermischen und abwechselnd mit der Schlagobers in die Ei-Zucker-Masse ruehren. Die Schokoladenbutter unterruehren. Die Vollmilchschokolade hacken und unter den Teig heben. Die Muffinform fetten und den Teig hinein fuellen. Der Teig reicht fuer 10 Stueck. Bei 200°C 15 Minuten lang backen. In der Form ca. 30-45 Minuten auskuehlen lassen. Waehrendessen intensiv Sport betreiben, bevor dies nicht mehr moeglich ist."
-}, {
-    "name": "Pizza",
-    "ingredients": [{
-            "name": "Mehl",
-            "quantity": "500 g"
-        },
-        {
-            "name": "Wasser",
-            "quantity": "300 ml"
-        },
-        {
-            "name": "Hefe",
-            "quantity": "1 Wuerfel"
-        },
-        {
-            "name": "Salz",
-            "quantity": "1 TL"
-        },
-        {
-            "name": "Olivenoel",
-            "quantity": "2 EL"
-        },
-        {
-            "name": "Tomatensauce",
-            "quantity": "1 Glas"
-        },
-        {
-            "name": "Mozzarella",
-            "quantity": "1 Packung"
-        },
-        {
-            "name": "Schinken",
-            "quantity": "1 Packung"
-        },
-        {
-            "name": "Champignons",
-            "quantity": "1 Dose"
-        },
-        {
-            "name": "Oregano"
-        }
-    ],
-    "instructions": "Mehl in eine Schuessel geben und eine Mulde formen. Die Hefe in die Mulde broeckeln und mit etwas Wasser und Mehl zu einem Vorteig verruehren. Mit einem Tuch abdecken und 15 Minuten gehen lassen. Salz, Oel und Wasser hinzufuegen und zu einem glatten Teig verkneten. Den Teig zugedeckt an einem warmen Ort 30 Minuten gehen lassen. Den Teig auf einer bemehlten Arbeitsflaeche nochmals durchkneten und in 4 Portionen teilen. Jede Portion zu einem runden Fladen ausrollen. Die Tomatensauce auf den Teigfladen verteilen. Den Mozzarella in Scheiben schneiden und auf der Pizza verteilen. Den Schinken in Streifen schneiden und auf der Pizza verteilen. Die Champignons abtropfen lassen und auf der Pizza verteilen. Mit Oregano wuerzen. Die Pizza im vorgeheizten Backofen bei 250°C 10-15 Minuten backen."
-}]
+		"name":	"Chocolate Cake",
+		"ingredients":	[{
+				"name":	"Schokolade, zartbitter",
+				"quantity":	"125 g"
+			}, {
+				"name":	"Schokolade, Vollmilch",
+				"quantity":	"125 g"
+			}, {
+				"name":	"Eier",
+				"quantity":	"2"
+			}, {
+				"name":	"Zucker",
+				"quantity":	"125 g"
+			}, {
+				"name":	"Vanillezucker",
+				"quantity":	"1 Beutel"
+			}, {
+				"name":	"Kakaopulver",
+				"quantity":	"50 g"
+			}, {
+				"name":	"Mehl",
+				"quantity":	"125 g"
+			}, {
+				"name":	"Butter",
+				"quantity":	"125 g"
+			}, {
+				"name":	"Schlagobers",
+				"quantity":	"125 g"
+			}, {
+				"name":	"Fett fuer die Form"
+			}],
+		"instructions":	"Die Zartbitterschokolade mit der Butter in einem Wasserbad schmelzen und etwas abkuehlen lassen. Die Eier mit dem Zucker und dem Vanillezucker schaumig schlagen bis eine cremige Masse entsteht. Das Mehl und das Kakaopulver vermischen und abwechselnd mit der Schlagobers in die Ei-Zucker-Masse ruehren. Die Schokoladenbutter unterruehren. Die Vollmilchschokolade hacken und unter den Teig heben. Die Muffinform fetten und den Teig hinein fuellen. Der Teig reicht fuer 10 Stueck. Bei 200°C 15 Minuten lang backen. In der Form ca. 30-45 Minuten auskuehlen lassen. Waehrendessen intensiv Sport betreiben, bevor dies nicht mehr moeglich ist."
+	}, {
+		"name":	"Pizza",
+		"ingredients":	[{
+				"name":	"Mehl",
+				"quantity":	"500 g"
+			}, {
+				"name":	"Wasser",
+				"quantity":	"300 ml"
+			}, {
+				"name":	"Hefe",
+				"quantity":	"1 Wuerfel"
+			}, {
+				"name":	"Salz",
+				"quantity":	"1 TL"
+			}, {
+				"name":	"Olivenoel",
+				"quantity":	"2 EL"
+			}, {
+				"name":	"Tomatensauce",
+				"quantity":	"1 Glas"
+			}, {
+				"name":	"Mozzarella",
+				"quantity":	"1 Packung"
+			}, {
+				"name":	"Schinken",
+				"quantity":	"1 Packung"
+			}, {
+				"name":	"Champignons",
+				"quantity":	"1 Dose"
+			}, {
+				"name":	"Oregano"
+			}],
+		"instructions":	"Mehl in eine Schuessel geben und eine Mulde formen. Die Hefe in die Mulde broeckeln und mit etwas Wasser und Mehl zu einem Vorteig verruehren. Mit einem Tuch abdecken und 15 Minuten gehen lassen. Salz, Oel und Wasser hinzufuegen und zu einem glatten Teig verkneten. Den Teig zugedeckt an einem warmen Ort 30 Minuten gehen lassen. Den Teig auf einer bemehlten Arbeitsflaeche nochmals durchkneten und in 4 Portionen teilen. Jede Portion zu einem runden Fladen ausrollen. Die Tomatensauce auf den Teigfladen verteilen. Den Mozzarella in Scheiben schneiden und auf der Pizza verteilen. Den Schinken in Streifen schneiden und auf der Pizza verteilen. Die Champignons abtropfen lassen und auf der Pizza verteilen. Mit Oregano wuerzen. Die Pizza im vorgeheizten Backofen bei 250°C 10-15 Minuten backen."
+	}, {
+		"name":	"Testrezept",
+		"instructions":	"Testanleitung",
+		"ingredients":	[{
+				"name":	"Zutat 1",
+				"quantity":	"1"
+			}, {
+				"name":	"Zutat 2",
+				"quantity":	"2"
+			}]
+	}, {
+		"name":	"Testrezept",
+		"instructions":	"Testanleitung",
+		"ingredients":	[{
+				"name":	"Zutat 1",
+				"quantity":	"1"
+			}, {
+				"name":	"Zutat 2",
+				"quantity":	"2"
+			}]
+	}]
