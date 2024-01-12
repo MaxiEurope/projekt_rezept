@@ -11,14 +11,6 @@
 
 int recipe_count = 0;
 
-/**
- * TODO
- * 
- * put functions into separate files
-*/
-
-
-
 void addrecipe(Recipe *new_recipe) {
     char *json_data = readfile("recipes.json");
     if (json_data == NULL) {
@@ -94,19 +86,6 @@ int main() {
     }
 
     printrecipes(recipes, recipe_count);
-
-    // for (int i = 0; i < recipe_count; i++) {
-    //     Recipe* recipe = &recipes[i];
-
-    //     printf("Recipe %d: %s\n", i + 1, recipe->name);
-    //     printf("Instructions:\n%s\n", recipe->instructions);
-    //     printf("Ingredients:\n");
-    //     for (int j = 0; j < recipe->ingredient_count; j++) {
-    //         Ingredient* ingredient = &recipe->ingredients[j];
-    //         printf("  %s %s\n", ingredient->quantity, ingredient->name);
-    //     }
-    //     printf("\n");
-    // }
 
     freerecipes(recipes, recipe_count);
     free(json_data);
