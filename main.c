@@ -76,61 +76,6 @@ Recipe* parserecipe(const char* json_data) {
     return recipes;
 }
 
-void addrecipe(Recipe *new_recipe) {
-    // Read the existing file
-    char *json_data = readfile("recipes.json");
-    if (json_data == NULL) {
-        printf("Could not read file.\n");
-        return;
-    }
-
-    // Parse the existing recipes
-    cJSON *json_recipes = cJSON_Parse(json_data);
-    if (json_recipes == NULL) {
-        printf("Could not parse JSON data.\n");
-        free(json_data);
-        return;
-    }
-
-    // Create a cJSON object for the new recipe
-    cJSON *json_new_recipe = cJSON_CreateObject();
-    cJSON_AddStringToObject(json_new_recipe, "name", new_recipe->name);
-    cJSON_AddStringToObject(json_new_recipe, "instructions", new_recipe->instructions);
-
-    cJSON *json_ingredients = cJSON_CreateArray();
-    for (int i = 0; i < new_recipe->ingredient_count; i++) {
-        cJSON *json_ingredient = cJSON_CreateObject();
-        cJSON_AddStringToObject(json_ingredient, "name", new_recipe->ingredients[i].name);
-        cJSON_AddStringToObject(json_ingredient, "quantity", new_recipe->ingredients[i].quantity);
-        cJSON_AddItemToArray(json_ingredients, json_ingredient);
-    }
-    cJSON_AddItemToObject(json_new_recipe, "ingredients", json_ingredients);
-
-    // Add the new recipe to the existing recipes
-    cJSON_AddItemToArray(json_recipes, json_new_recipe);
-
-    // Convert the updated recipes to a string
-    char *updated_json_data = cJSON_Print(json_recipes);
-
-    // Write the updated recipes to the file
-    FILE *file = fopen("recipes.json", "w");
-    if (file == NULL) {
-        printf("Could not open file for writing.\n");
-        free(updated_json_data);
-        cJSON_Delete(json_recipes);
-        free(json_data);
-        return;
-    }
-
-    fprintf(file, "%s\n", updated_json_data);
-    fclose(file);
-
-    // Clean up
-    free(updated_json_data);
-    cJSON_Delete(json_recipes);
-    free(json_data);
-}
-
 void freerecipes(Recipe* recipes, int count) {
     if (recipes == NULL) {
         return;
