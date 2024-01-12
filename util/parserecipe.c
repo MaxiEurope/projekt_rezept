@@ -1,21 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "util/ext/cJSON.h"
-#include "util/recipe.h"
+#include "ext/cJSON.h"
+#include "recipe.h"
 
-Recipe* parserecipe(const char* json_data) {
+Recipe* parserecipe(const char* json_data, int *recipe_count) {
     cJSON* json = cJSON_Parse(json_data);
     if (json == NULL) {
         printf("Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
         return NULL;
     }
 
-    int recipe_count = cJSON_GetArraySize(json);
-    printf("Lädt %d Rezepte\n", recipe_count);
-    Recipe* recipes = (Recipe*)malloc(recipe_count * sizeof(Recipe));
+    *recipe_count = cJSON_GetArraySize(json);
+    printf("Lädt %d Rezepte\n", *recipe_count);
+    Recipe* recipes = (Recipe*)malloc(*recipe_count * sizeof(Recipe));
 
-    for (int i = 0; i < recipe_count; i++) {
+    for (int i = 0; i < *recipe_count; i++) {
         cJSON* recipe = cJSON_GetArrayItem(json, i);
         if (recipe == NULL || !cJSON_IsObject(recipe)) {
             printf("Ein Fehler ist beim Laden von Rezept %d aufgetreten.\n", i + 1);
