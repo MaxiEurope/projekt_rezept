@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * Reads a file and returns its content as a string.
+ * 
+ * @param filepath path to the file
+ * @return pointer to the string containing the file content
+ */
 char* readfile(const char* filepath) {
     FILE* file = fopen(filepath, "r");
     if (file == NULL) {
