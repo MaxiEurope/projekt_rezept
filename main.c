@@ -20,6 +20,12 @@ typedef struct {
 
 int recipe_count = 0;
 
+/**
+ * TODO
+ * 
+ * put functions into separate files
+*/
+
 Recipe* parserecipe(const char* json_data) {
     cJSON* json = cJSON_Parse(json_data);
     if (json == NULL) {
