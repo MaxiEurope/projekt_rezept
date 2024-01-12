@@ -96,8 +96,6 @@ void freerecipes(Recipe* recipes, int count) {
             free(recipes[i].ingredients[j].quantity);
         }
         free(recipes[i].ingredients);
-        // free(recipes[i].ingredient_count);
-        // free(recipes[i].valid);
     }
 
     free(recipes);
