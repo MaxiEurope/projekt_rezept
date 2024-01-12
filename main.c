@@ -43,7 +43,7 @@ Recipe* parserecipe(const char* json_data) {
         cJSON* ingredients = cJSON_GetObjectItem(recipe, "ingredients");
         cJSON* instructions = cJSON_GetObjectItem(recipe, "instructions");
 
-        if (name == NULL || cJSON_IsString(name) || ingredients == NULL || cJSON_IsArray(ingredients) || instructions == NULL || cJSON_IsString(instructions)) {
+        if (name == NULL || !cJSON_IsString(name) || ingredients == NULL || !cJSON_IsArray(ingredients) || instructions == NULL || !cJSON_IsString(instructions)) {
             recipes[i].valid = 0;
             continue;
         }
@@ -56,10 +56,10 @@ Recipe* parserecipe(const char* json_data) {
         recipes[i].ingredients = (Ingredient*)malloc(ingredient_count * sizeof(Ingredient));
 
         for (int j = 0; j < ingredient_count; j++) {
-            cJSON* ingredientJson = cJSON_GetArrayItem(ingredients, j);
-            if (ingredientJson != NULL && cJSON_IsObject(ingredientJson)) {
-                cJSON* ingredient_name = cJSON_GetObjectItem(ingredientJson, "name");
-                cJSON* ingredient_quantity = cJSON_GetObjectItem(ingredientJson, "quantity");
+            cJSON* ingredient = cJSON_GetArrayItem(ingredients, j);
+            if (ingredient != NULL && cJSON_IsObject(ingredient)) {
+                cJSON* ingredient_name = cJSON_GetObjectItem(ingredient, "name");
+                cJSON* ingredient_quantity = cJSON_GetObjectItem(ingredient, "quantity");
 
                 if (ingredient_name != NULL && cJSON_IsString(ingredient_name)) {
                     recipes[i].ingredients[j].name = strdup(ingredient_name->valuestring);
@@ -74,7 +74,7 @@ Recipe* parserecipe(const char* json_data) {
                 }
             }
         }
-
+        recipes[i].valid = 1;
     }
 
     cJSON_Delete(json);
@@ -96,8 +96,8 @@ void freerecipes(Recipe* recipes, int count) {
             free(recipes[i].ingredients[j].quantity);
         }
         free(recipes[i].ingredients);
-        free(recipes[i].ingredient_count);
-        free(recipes[i].valid);
+        // free(recipes[i].ingredient_count);
+        // free(recipes[i].valid);
     }
 
     free(recipes);
