@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 #include "util/ext/cJSON.h"
 #include "util/recipe.h"
@@ -15,14 +16,14 @@ void addrecipe(Recipe *new_recipe, int *recipe_count) {
     char *json_data = readfile("recipes.json");
     if (json_data == NULL) {
         printf("Konnte Datei nicht öffnen.\n");
-        return NULL;
+        return;
     }
 
     cJSON *json_recipes = cJSON_Parse(json_data);
     if (json_recipes == NULL) {
         printf("Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
         free(json_data);
-        return NULL;
+        return;
     }
 
     cJSON *json_new_recipe = cJSON_CreateObject();
@@ -45,7 +46,7 @@ void addrecipe(Recipe *new_recipe, int *recipe_count) {
         printf("Ein Fehler ist beim Speichern aufgetreten.\n");
         cJSON_Delete(json_recipes);
         free(json_data);
-        return NULL;
+        return;
     }
     FILE *file = fopen("recipes.json", "w");
     if (file == NULL) {
@@ -53,7 +54,7 @@ void addrecipe(Recipe *new_recipe, int *recipe_count) {
         free(updated_json_data);
         cJSON_Delete(json_recipes);
         free(json_data);
-        return NULL;
+        return;
     }
 
     *recipe_count++;
@@ -68,41 +69,323 @@ void addrecipe(Recipe *new_recipe, int *recipe_count) {
     free(json_data);
 }
 
+void getrecipecount(int *recipe_count) {
+    char *json_data = readfile("recipes.json");
+    if (json_data == NULL) {
+        printf("Konnte Datei nicht öffnen.\n");
+        return;
+    }
+
+    cJSON* json = cJSON_Parse(json_data);
+    if (json == NULL) {
+        printf("Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
+        return;
+    }
+
+    *recipe_count = cJSON_GetArraySize(json);
+
+    cJSON_Delete(json);
+    free(json_data);
+}
+
 int main() {
     printf("Hello, World!\n");
-    char *json_data = readfile("recipes.json");
-    // printf("%s\n", json_data);
-    if (json_data == NULL) {
-        printf("json_data is null\n");
-        return 1;
-    } else {
-        printf("json_data is not null\n");
+
+    getrecipecount(&recipe_count);
+    printf("Es wurden %d Rezepte geladen.\n", recipe_count);
+    
+    while (1) {
+        printf("Was möchtest du tun?\n");
+        printf("1. Rezept hinzufügen\n");
+        printf("2. Rezept anzeigen\n");
+        printf("3. Rezept löschen\n");
+        printf("4. Rezept bearbeiten\n");
+        printf("5. Beenden\n");
+        printf("Auswahl: ");
+        int choice;
+        char term;
+        if(scanf("%1d%c", &choice, &term) != 2 || term != '\n') {
+            printf("Ungültige Eingabe. Bitte nur eine Zahl (1-5) eingeben.\n");
+            while(getchar() != '\n');
+            continue;
+        } else if(choice < 1 || choice > 5) {
+            printf("Bitte nur eine Zahl zwischen 1 und 5 eingeben.\n");
+            continue;
+        }
+        switch (choice) {
+            case 1: {
+                Recipe *new_recipe = (Recipe *) malloc(sizeof(Recipe));
+                printf("Name: ");
+                char name[100];
+                scanf("%s", name);
+                new_recipe->name = strdup(name);
+                printf("Anzahl Zutaten: ");
+                int ingredient_count;
+                scanf("%d", &ingredient_count);
+                new_recipe->ingredient_count = ingredient_count;
+                new_recipe->ingredients = (Ingredient *) malloc(ingredient_count * sizeof(Ingredient));
+                for (int i = 0; i < ingredient_count; i++) {
+                    printf("Zutat %d:\n", i + 1);
+                    printf("Name: ");
+                    char ingredient_name[100];
+                    scanf("%s", ingredient_name);
+                    new_recipe->ingredients[i].name = strdup(ingredient_name);
+                    printf("Menge: ");
+                    char ingredient_quantity[100];
+                    scanf("%s", ingredient_quantity);
+                    new_recipe->ingredients[i].quantity = strdup(ingredient_quantity);
+                }
+                printf("Anleitung:\n");
+                char instructions[1000];
+                if (fgets(instructions, sizeof(instructions), stdin) == NULL) {
+                    printf("Ungültige Eingabe.\n");
+                    return 1;
+                }
+                new_recipe->instructions = strdup(instructions);
+                addrecipe(new_recipe, &recipe_count);
+                free(new_recipe);
+                break;
+            }
+            case 2: {
+                char *json_data = readfile("recipes.json");
+                if (json_data == NULL) {
+                    printf("Konnte Datei nicht öffnen.\n");
+                    return 1;
+                }
+
+                Recipe *recipes = parserecipe(json_data, &recipe_count);
+                if (recipes == NULL) {
+                    printf("Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
+                    free(json_data);
+                    return 1;
+                }
+
+                printrecipes(recipes, recipe_count);
+                freerecipes(recipes, recipe_count);
+                free(json_data);
+                break;
+            }
+            case 3: {
+                char *json_data = readfile("recipes.json");
+                if (json_data == NULL) {
+                    printf("Konnte Datei nicht öffnen.\n");
+                    return 1;
+                }
+
+                Recipe *recipes = parserecipe(json_data, &recipe_count);
+                if (recipes == NULL) {
+                    printf("Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
+                    free(json_data);
+                    return 1;
+                }
+
+                printf("Welches Rezept möchtest du löschen?\n");
+                int recipe_index;
+                scanf("%d", &recipe_index);
+                if (recipe_index < 1 || recipe_index > recipe_count) {
+                    printf("Ungültige Eingabe.\n");
+                    freerecipes(recipes, recipe_count);
+                    free(json_data);
+                    return 1;
+                }
+
+                cJSON *json_recipes = cJSON_Parse(json_data);
+                if (json_recipes == NULL) {
+                    printf("Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
+                    freerecipes(recipes, recipe_count);
+                    free(json_data);
+                    return 1;
+                }
+
+                cJSON_DeleteItemFromArray(json_recipes, recipe_index - 1);
+
+                char *updated_json_data = cJSON_Print(json_recipes);
+                if (updated_json_data == NULL) {
+                    printf("Ein Fehler ist beim Speichern aufgetreten.\n");
+                    cJSON_Delete(json_recipes);
+                    freerecipes(recipes, recipe_count);
+                    free(json_data);
+                    return 1;
+                }
+                FILE *file = fopen("recipes.json", "w");
+                if (file == NULL) {
+                    printf("Konnte Datei nicht öffnen.\n");
+                    free(updated_json_data);
+                    cJSON_Delete(json_recipes);
+                    freerecipes(recipes, recipe_count);
+                    free(json_data);
+                    return 1;
+                }
+
+                printf("Rezept gelöscht.\n");
+                printf("Rezeptanzahl: %d\n", recipe_count - 1);
+
+                fprintf(file, "%s\n", updated_json_data);
+                fclose(file);
+
+                free(updated_json_data);
+                cJSON_Delete(json_recipes);
+                freerecipes(recipes, recipe_count);
+                free(json_data);
+                break;
+            }
+            case 4: {
+                char *json_data = readfile("recipes.json");
+                if (json_data == NULL) {
+                    printf("Konnte Datei nicht öffnen.\n");
+                    return 1;
+                }
+
+                Recipe *recipes = parserecipe(json_data, &recipe_count);
+                if (recipes == NULL) {
+                    printf("Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
+                    free(json_data);
+                    return 1;
+                }
+
+                printf("Welches Rezept möchtest du bearbeiten?\n");
+                int recipe_index;
+                scanf("%d", &recipe_index);
+                if (recipe_index < 1 || recipe_index > recipe_count) {
+                    printf("Ungültige Eingabe.\n");
+                    freerecipes(recipes, recipe_count);
+                    free(json_data);
+                    return 1;
+                }
+
+                printf("Was möchtest du bearbeiten?\n");
+                printf("1. Name\n");
+                printf("2. Zutaten\n");
+                printf("3. Anleitung\n");
+                printf("Auswahl: ");
+                int edit_choice;
+                scanf("%d", &edit_choice);
+                switch (edit_choice) {
+                    case 1: {
+                        printf("Neuer Name: ");
+                        char name[100];
+                        scanf("%s", name);
+                        recipes[recipe_index - 1].name = strdup(name);
+                        break;
+                    }
+                    case 2: {
+                        printf("Anzahl Zutaten: ");
+                        int ingredient_count;
+                        scanf("%d", &ingredient_count);
+                        recipes[recipe_index - 1].ingredient_count = ingredient_count;
+                        recipes[recipe_index - 1].ingredients = (Ingredient *) malloc(ingredient_count * sizeof(Ingredient));
+                        for (int i = 0; i < ingredient_count; i++) {
+                            printf("Zutat %d:\n", i + 1);
+                            printf("Name: ");
+                            char ingredient_name[100];
+                            scanf("%s", ingredient_name);
+                            recipes[recipe_index - 1].ingredients[i].name = strdup(ingredient_name);
+                            printf("Menge: ");
+                            char ingredient_quantity[100];
+                            scanf("%s", ingredient_quantity);
+                            recipes[recipe_index - 1].ingredients[i].quantity = strdup(ingredient_quantity);
+                        }
+                        break;
+                    }
+                    case 3: {
+                        printf("Ne  uer Anleitung:\n");
+                        char instructions[1000];
+                        scanf("%s", instructions);
+                        recipes[recipe_index - 1].instructions = strdup(instructions);
+                        break;
+                    }
+                    default: {
+                        printf("Ungültige Eingabe.\n");
+                        freerecipes(recipes, recipe_count);
+                        free(json_data);
+                        return 1;
+                    }
+                }
+
+
+                cJSON *json_recipes = cJSON_Parse(json_data);
+                if (json_recipes == NULL) {
+                    printf("Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
+                    freerecipes(recipes, recipe_count);
+                    free(json_data);
+                    return 1;
+                }
+
+                cJSON *json_recipe = cJSON_GetArrayItem(json_recipes, recipe_index - 1);
+                if (json_recipe == NULL || !cJSON_IsObject(json_recipe)) {
+                    printf("Ein Fehler ist beim Laden von Rezept %d aufgetreten.\n", recipe_index);
+                    freerecipes(recipes, recipe_count);
+                    free(json_data);
+                    return 1;
+                }
+
+                cJSON *json_name = cJSON_GetObjectItem(json_recipe, "name");
+                cJSON *json_ingredients = cJSON_GetObjectItem(json_recipe, "ingredients");
+                cJSON *json_instructions = cJSON_GetObjectItem(json_recipe, "instructions");
+
+                if (json_name == NULL || !cJSON_IsString(json_name) || json_ingredients == NULL || !cJSON_IsArray(json_ingredients) || json_instructions == NULL || !cJSON_IsString(json_instructions)) {
+                    freerecipes(recipes, recipe_count);
+                    free(json_data);
+                    return 1;
+                }
+
+                cJSON_DeleteItemFromObject(json_recipe, "name");
+                cJSON_DeleteItemFromObject(json_recipe, "ingredients");
+                cJSON_DeleteItemFromObject(json_recipe, "instructions");
+
+                cJSON_AddStringToObject(json_recipe, "name", recipes[recipe_index - 1].name);
+
+                cJSON *json_new_ingredients = cJSON_CreateArray();
+                for (int i = 0; i < recipes[recipe_index - 1].ingredient_count; i++) {
+                    cJSON *json_ingredient = cJSON_CreateObject();
+                    cJSON_AddStringToObject(json_ingredient, "name", recipes[recipe_index - 1].ingredients[i].name);
+                    cJSON_AddStringToObject(json_ingredient, "quantity", recipes[recipe_index - 1].ingredients[i].quantity);
+                    cJSON_AddItemToArray(json_new_ingredients, json_ingredient);
+                }
+                cJSON_AddItemToObject(json_recipe, "ingredients", json_new_ingredients);
+
+                cJSON_AddStringToObject(json_recipe, "instructions", recipes[recipe_index - 1].instructions);
+
+                char *updated_json_data = cJSON_Print(json_recipes);
+                if (updated_json_data == NULL) {
+                    printf("Ein Fehler ist beim Speichern aufgetreten.\n");
+                    cJSON_Delete(json_recipes);
+                    freerecipes(recipes, recipe_count);
+                    free(json_data);
+                    return 1;
+                }
+                FILE *file = fopen("recipes.json", "w");
+                if (file == NULL) {
+                    printf("Konnte Datei nicht öffnen.\n");
+                    free(updated_json_data);
+                    cJSON_Delete(json_recipes);
+                    freerecipes(recipes, recipe_count);
+                    free(json_data);
+                    return 1;
+                }
+
+                printf("Rezept bearbeitet.\n");
+
+                fprintf(file, "%s\n", updated_json_data);
+                fclose(file);
+
+                free(updated_json_data);
+
+                cJSON_Delete(json_recipes);
+                freerecipes(recipes, recipe_count);
+                free(json_data);
+                break;
+            }
+            case 5: {
+                printf("Programm wird beendet.\n");
+                return 0;
+            }
+            default: {
+                printf("Ungültige Eingabe.\n");
+                return 1;
+            }
+        }
     }
-
-    Recipe *recipes = parserecipe(json_data, &recipe_count);
-    if (recipes == NULL) {
-        printf("recipes is null\n");
-        free(json_data);
-        return 1;
-    } else {
-        printf("recipes is not null\n");
-    }
-
-    printrecipes(recipes, recipe_count);
-
-    Recipe new_recipe;
-    new_recipe.name = "Testrezept";
-    new_recipe.instructions = "Testanleitung";
-    new_recipe.ingredient_count = 2;
-    new_recipe.ingredients = (Ingredient*)malloc(2 * sizeof(Ingredient));
-    new_recipe.ingredients[0].name = "Zutat 1";
-    new_recipe.ingredients[0].quantity = "1";
-    new_recipe.ingredients[1].name = "Zutat 2";
-    new_recipe.ingredients[1].quantity = "2";
-    addrecipe(&new_recipe, &recipe_count);
-
-    freerecipes(recipes, recipe_count);
-    free(json_data);
 
     return 0;
 }
