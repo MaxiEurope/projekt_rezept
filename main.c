@@ -4,6 +4,7 @@
 #include <stdbool.h>
 
 #include "util/ext/cJSON.h"
+#include "util/str/duplicate.c"
 #include "util/recipe.h"
 #include "util/readfile.c"
 #include "util/parserecipe.c"
@@ -127,7 +128,7 @@ int main() {
                 printf("Name: ");
                 char name[100];
                 scanf("%s", name);
-                new_recipe->name = strdup(name);
+                new_recipe->name = duplicate(name);
                 printf("Anzahl Zutaten: ");
                 int ingredient_count;
                 scanf("%d", &ingredient_count);
@@ -138,11 +139,11 @@ int main() {
                     printf("Name: ");
                     char ingredient_name[100];
                     scanf("%s", ingredient_name);
-                    new_recipe->ingredients[i].name = strdup(ingredient_name);
+                    new_recipe->ingredients[i].name = duplicate(ingredient_name);
                     printf("Menge: ");
                     char ingredient_quantity[100];
                     scanf("%s", ingredient_quantity);
-                    new_recipe->ingredients[i].quantity = strdup(ingredient_quantity);
+                    new_recipe->ingredients[i].quantity = duplicate(ingredient_quantity);
                 }
                 printf("Anleitung:\n");
                 clear_input_buffer();
@@ -151,7 +152,7 @@ int main() {
                     printf("Ungültige Eingabe.\n");
                     return 1;
                 }
-                new_recipe->instructions = strdup(instructions);
+                new_recipe->instructions = duplicate(instructions);
                 addrecipe(new_recipe, &recipe_count);
                 free(new_recipe);
                 break;

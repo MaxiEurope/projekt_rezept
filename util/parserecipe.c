@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "ext/cJSON.h"
+#include "str/duplicate.c"
 #include "recipe.h"
 
 Recipe* parserecipe(const char* json_data, int *recipe_count) {
@@ -32,8 +33,8 @@ Recipe* parserecipe(const char* json_data, int *recipe_count) {
             continue;
         }
 
-        recipes[i].name = strdup(name->valuestring);
-        recipes[i].instructions = strdup(instructions->valuestring);
+        recipes[i].name = duplicate(name->valuestring);
+        recipes[i].instructions = duplicate(instructions->valuestring);
 
         int ingredient_count = cJSON_GetArraySize(ingredients);
         recipes[i].ingredient_count = ingredient_count;
@@ -46,13 +47,13 @@ Recipe* parserecipe(const char* json_data, int *recipe_count) {
                 cJSON* ingredient_quantity = cJSON_GetObjectItem(ingredient, "quantity");
 
                 if (ingredient_name != NULL && cJSON_IsString(ingredient_name)) {
-                    recipes[i].ingredients[j].name = strdup(ingredient_name->valuestring);
+                    recipes[i].ingredients[j].name = duplicate(ingredient_name->valuestring);
                 } else {
                     recipes[i].ingredients[j].name = NULL;
                 }
 
                 if (ingredient_quantity != NULL && cJSON_IsString(ingredient_quantity)) {
-                    recipes[i].ingredients[j].quantity = strdup(ingredient_quantity->valuestring);
+                    recipes[i].ingredients[j].quantity = duplicate(ingredient_quantity->valuestring);
                 } else {
                     recipes[i].ingredients[j].quantity = NULL;
                 }
