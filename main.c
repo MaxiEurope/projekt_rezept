@@ -75,25 +75,6 @@ void addrecipe(Recipe *new_recipe, int *recipe_count) {
     free(json_data);
 }
 
-void getrecipecount(int *recipe_count) {
-    char *json_data = readfile("recipes.json");
-    if (json_data == NULL) {
-        printf("Konnte Datei nicht öffnen.\n");
-        return;
-    }
-
-    cJSON* json = cJSON_Parse(json_data);
-    if (json == NULL) {
-        printf("Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
-        return;
-    }
-
-    *recipe_count = cJSON_GetArraySize(json);
-
-    cJSON_Delete(json);
-    free(json_data);
-}
-
 int main() {
     printf("Hello, World!\n");
 
