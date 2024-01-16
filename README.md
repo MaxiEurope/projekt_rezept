@@ -1,6 +1,6 @@
 test
 ### compile and run
 ```bash
-gcc main.c -lncurses util/ext/cJSON.c ; ./a.out
+gcc -std=c99 -Wall -Wextra -pedantic -Wno-unused-parameter main.c -lncurses util/ext/cJSON.c ; ./a.out
 ```
 
