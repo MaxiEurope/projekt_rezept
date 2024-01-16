@@ -10,6 +10,15 @@
 #include "util/printrecipe.c"
 #include "util/freerecipes.c"
 
+
+/**
+ * https://stackoverflow.com/a/7898516
+ */
+void clear_input_buffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) { }
+}
+
 int recipe_count = 0;
 
 void addrecipe(Recipe *new_recipe, int *recipe_count) {
