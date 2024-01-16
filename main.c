@@ -6,11 +6,7 @@
 #include "util/ext/cJSON.h"
 #include "util/str/duplicatestr.h"
 #include "util/recipe.h"
-#include "util/readfile.c"
-#include "util/parserecipe.c"
-#include "util/printrecipe.c"
-#include "util/freerecipes.c"
-
+#include "util/recipeutil.h"
 
 /**
  * https://stackoverflow.com/a/7898516
