@@ -87,16 +87,17 @@ int main() {
         printf("2. Rezept anzeigen\n");
         printf("3. Rezept löschen\n");
         printf("4. Rezept bearbeiten\n");
-        printf("5. Beenden\n");
+        printf("5. Rezept suchen\n");
+        printf("6. Beenden\n");
         printf("Auswahl: ");
         int choice;
         char term;
         if(scanf("%1d%c", &choice, &term) != 2 || term != '\n') {
-            printf("Ungültige Eingabe. Bitte nur eine Zahl (1-5) eingeben.\n");
+            printf("Ungültige Eingabe. Bitte nur eine Zahl (1-6) eingeben.\n");
             while(getchar() != '\n');
             continue;
-        } else if(choice < 1 || choice > 5) {
-            printf("Bitte nur eine Zahl zwischen 1 und 5 eingeben.\n");
+        } else if(choice < 1 || choice > 6) {
+            printf("Bitte nur eine Zahl zwischen 1 und 6 eingeben.\n");
             continue;
         }
         switch (choice) {
@@ -129,6 +130,7 @@ int main() {
                     printf("Ungültige Eingabe.\n");
                     return 1;
                 }
+                instructions[strcspn(instructions, "\n")] = '\0'; // https://stackoverflow.com/a/28462221
                 new_recipe->instructions = duplicatestr(instructions);
                 addrecipe(new_recipe, &recipe_count);
                 free(new_recipe);
@@ -365,6 +367,37 @@ int main() {
                 break;
             }
             case 5: {
+                char *json_data = readfile("recipes.json");
+                if (json_data == NULL) {
+                    printf("Konnte Datei nicht öffnen.\n");
+                    return 1;
+                }
+
+                Recipe *recipes = parserecipe(json_data, &recipe_count);
+                if (recipes == NULL) {
+                    printf("Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
+                    free(json_data);
+                    return 1;
+                }
+
+                printf("Wie viele Zutaten möchtest du eingeben?\n");
+                int ingredient_count;
+                scanf("%d", &ingredient_count);
+                char **ingredients = (char **) malloc(ingredient_count * sizeof(char *));
+                for (int i = 0; i < ingredient_count; i++) {
+                    printf("Zutat %d: ", i + 1);
+                    char ingredient[100];
+                    scanf("%s", ingredient);
+                    ingredients[i] = duplicatestr(ingredient);
+                }
+                printf("Rezepte:\n");
+                searchrecipe(recipes, &recipe_count, ingredients, ingredient_count);
+
+                freerecipes(recipes, recipe_count);
+                free(json_data);
+                break;
+            }
+            case 6: {
                 printf("Programm wird beendet.\n");
                 return 0;
             }

@@ -18,6 +18,12 @@ bool hasingredient(Recipe* recipe, char* ingredient) {
 }
 
 void searchrecipe(Recipe* recipes, int *recipe_count, char** ingredients, int ingredient_count) {
+    // debug
+    printf("recipe_count: %d\n", *recipe_count);
+    for (int i = 0; i < ingredient_count; i++) {
+        printf("ingredient: %s\n", ingredients[i]);
+    }
+
     for (int i = 0; i < *recipe_count; i++) {
         bool has_all = true;
         for (int j = 0; j < ingredient_count; j++) {
