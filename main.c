@@ -4,7 +4,7 @@
 #include <stdbool.h>
 
 #include "util/ext/cJSON.h"
-#include "util/str/duplicatestr.c"
+#include "util/str/duplicatestr.h"
 #include "util/recipe.h"
 #include "util/readfile.c"
 #include "util/parserecipe.c"

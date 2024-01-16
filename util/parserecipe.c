@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "ext/cJSON.h"
+#include "str/duplicatestr.h"
 #include "recipe.h"
 
 Recipe* parserecipe(const char* json_data, int *recipe_count) {
