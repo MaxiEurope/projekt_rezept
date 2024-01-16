@@ -67,7 +67,7 @@ void addrecipe(Recipe *new_recipe, int *recipe_count) {
         return;
     }
 
-    *recipe_count++;
+    (*recipe_count)++;
     printf("Rezept hinzugefügt.\n");
     printf("Rezeptanzahl: %d\n", *recipe_count);
 
@@ -276,7 +276,7 @@ int main() {
                         printf("Neuer Name: ");
                         char name[100];
                         scanf("%s", name);
-                        recipes[recipe_index - 1].name = strdup(name);
+                        recipes[recipe_index - 1].name = duplicate(name);
                         break;
                     }
                     case 2: {
@@ -290,11 +290,11 @@ int main() {
                             printf("Name: ");
                             char ingredient_name[100];
                             scanf("%s", ingredient_name);
-                            recipes[recipe_index - 1].ingredients[i].name = strdup(ingredient_name);
+                            recipes[recipe_index - 1].ingredients[i].name = duplicate(ingredient_name);
                             printf("Menge: ");
                             char ingredient_quantity[100];
                             scanf("%s", ingredient_quantity);
-                            recipes[recipe_index - 1].ingredients[i].quantity = strdup(ingredient_quantity);
+                            recipes[recipe_index - 1].ingredients[i].quantity = duplicate(ingredient_quantity);
                         }
                         break;
                     }
@@ -302,7 +302,7 @@ int main() {
                         printf("Ne  uer Anleitung:\n");
                         char instructions[1000];
                         scanf("%s", instructions);
-                        recipes[recipe_index - 1].instructions = strdup(instructions);
+                        recipes[recipe_index - 1].instructions = duplicate(instructions);
                         break;
                     }
                     default: {
