@@ -65,23 +65,10 @@
 			}],
 		"instructions":	"Mehl in eine Schuessel geben und eine Mulde formen. Die Hefe in die Mulde broeckeln und mit etwas Wasser und Mehl zu einem Vorteig verruehren. Mit einem Tuch abdecken und 15 Minuten gehen lassen. Salz, Oel und Wasser hinzufuegen und zu einem glatten Teig verkneten. Den Teig zugedeckt an einem warmen Ort 30 Minuten gehen lassen. Den Teig auf einer bemehlten Arbeitsflaeche nochmals durchkneten und in 4 Portionen teilen. Jede Portion zu einem runden Fladen ausrollen. Die Tomatensauce auf den Teigfladen verteilen. Den Mozzarella in Scheiben schneiden und auf der Pizza verteilen. Den Schinken in Streifen schneiden und auf der Pizza verteilen. Die Champignons abtropfen lassen und auf der Pizza verteilen. Mit Oregano wuerzen. Die Pizza im vorgeheizten Backofen bei 250°C 10-15 Minuten backen."
 	}, {
-		"name":	"Testrezept",
-		"instructions":	"Testanleitung",
+		"name":	"test",
+		"instructions":	"test",
 		"ingredients":	[{
-				"name":	"Zutat 1",
-				"quantity":	"1"
-			}, {
-				"name":	"Zutat 2",
-				"quantity":	"2"
-			}]
-	}, {
-		"name":	"Testrezept",
-		"instructions":	"Testanleitung",
-		"ingredients":	[{
-				"name":	"Zutat 1",
-				"quantity":	"1"
-			}, {
-				"name":	"Zutat 2",
+				"name":	"test1",
 				"quantity":	"2"
 			}]
 	}]
