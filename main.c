@@ -145,6 +145,7 @@ int main() {
                     new_recipe->ingredients[i].quantity = strdup(ingredient_quantity);
                 }
                 printf("Anleitung:\n");
+                clear_input_buffer();
                 char instructions[1000];
                 if (fgets(instructions, sizeof(instructions), stdin) == NULL) {
                     printf("Ungültige Eingabe.\n");
