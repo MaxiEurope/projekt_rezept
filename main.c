@@ -4,7 +4,7 @@
 #include <stdbool.h>
 
 #include "util/ext/cJSON.h"
-#include "util/str/duplicate.c"
+#include "util/str/duplicatestr.c"
 #include "util/recipe.h"
 #include "util/readfile.c"
 #include "util/parserecipe.c"
@@ -128,7 +128,7 @@ int main() {
                 printf("Name: ");
                 char name[100];
                 scanf("%s", name);
-                new_recipe->name = duplicate(name);
+                new_recipe->name = duplicatestr(name);
                 printf("Anzahl Zutaten: ");
                 int ingredient_count;
                 scanf("%d", &ingredient_count);
@@ -139,11 +139,11 @@ int main() {
                     printf("Name: ");
                     char ingredient_name[100];
                     scanf("%s", ingredient_name);
-                    new_recipe->ingredients[i].name = duplicate(ingredient_name);
+                    new_recipe->ingredients[i].name = duplicatestr(ingredient_name);
                     printf("Menge: ");
                     char ingredient_quantity[100];
                     scanf("%s", ingredient_quantity);
-                    new_recipe->ingredients[i].quantity = duplicate(ingredient_quantity);
+                    new_recipe->ingredients[i].quantity = duplicatestr(ingredient_quantity);
                 }
                 printf("Anleitung:\n");
                 clear_input_buffer();
@@ -152,7 +152,7 @@ int main() {
                     printf("Ungültige Eingabe.\n");
                     return 1;
                 }
-                new_recipe->instructions = duplicate(instructions);
+                new_recipe->instructions = duplicatestr(instructions);
                 addrecipe(new_recipe, &recipe_count);
                 free(new_recipe);
                 break;
@@ -276,7 +276,7 @@ int main() {
                         printf("Neuer Name: ");
                         char name[100];
                         scanf("%s", name);
-                        recipes[recipe_index - 1].name = duplicate(name);
+                        recipes[recipe_index - 1].name = duplicatestr(name);
                         break;
                     }
                     case 2: {
@@ -290,19 +290,19 @@ int main() {
                             printf("Name: ");
                             char ingredient_name[100];
                             scanf("%s", ingredient_name);
-                            recipes[recipe_index - 1].ingredients[i].name = duplicate(ingredient_name);
+                            recipes[recipe_index - 1].ingredients[i].name = duplicatestr(ingredient_name);
                             printf("Menge: ");
                             char ingredient_quantity[100];
                             scanf("%s", ingredient_quantity);
-                            recipes[recipe_index - 1].ingredients[i].quantity = duplicate(ingredient_quantity);
+                            recipes[recipe_index - 1].ingredients[i].quantity = duplicatestr(ingredient_quantity);
                         }
                         break;
                     }
                     case 3: {
-                        printf("Ne  uer Anleitung:\n");
+                        printf("Neue Anleitung:\n");
                         char instructions[1000];
                         scanf("%s", instructions);
-                        recipes[recipe_index - 1].instructions = duplicate(instructions);
+                        recipes[recipe_index - 1].instructions = duplicatestr(instructions);
                         break;
                     }
                     default: {
