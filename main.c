@@ -104,12 +104,21 @@ int main() {
             case 1: {
                 Recipe *new_recipe = (Recipe *) malloc(sizeof(Recipe));
                 printf("Name: ");
-                char name[100];
-                scanf("%s", name);
+                char name[101];
+                if (scanf("%100[^\n]", name) != 1) {
+                    printf("Ungültiger Rezept Name.\n");
+                    return 1;
+                }
+                name[strcspn(name, "\n")] = '\0'; // https://stackoverflow.com/a/28462221
                 new_recipe->name = duplicatestr(name);
+                clear_input_buffer();
                 printf("Anzahl Zutaten: ");
                 int ingredient_count;
-                scanf("%d", &ingredient_count);
+                int res = scanf("%d", &ingredient_count);
+                if (res != 1) {
+                    printf("Invalid Eingabe, die Anzahl der Zutaten soll eine Zahl sein.\n");
+                    return 1;
+                }
                 new_recipe->ingredient_count = ingredient_count;
                 new_recipe->ingredients = (Ingredient *) malloc(ingredient_count * sizeof(Ingredient));
                 for (int i = 0; i < ingredient_count; i++) {
@@ -152,6 +161,7 @@ int main() {
 
                 printrecipes(recipes, recipe_count);
                 freerecipes(recipes, recipe_count);
+
                 free(json_data);
                 break;
             }

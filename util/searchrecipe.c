@@ -24,6 +24,8 @@ void searchrecipe(Recipe* recipes, int *recipe_count, char** ingredients, int in
         printf("ingredient: %s\n", ingredients[i]);
     }
 
+    int found = 0;
+
     for (int i = 0; i < *recipe_count; i++) {
         bool has_all = true;
         for (int j = 0; j < ingredient_count; j++) {
@@ -34,6 +36,11 @@ void searchrecipe(Recipe* recipes, int *recipe_count, char** ingredients, int in
         }
         if (has_all) {
             printf("%s\n", recipes[i].name);
+            found = 1;
         }
+    }
+
+    if (!found) {
+        printf("Keine Rezept gefunden\n");
     }
 }
