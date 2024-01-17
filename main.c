@@ -116,8 +116,8 @@ int main() {
                 int ingredient_count;
                 int res = scanf("%d", &ingredient_count);
                 if (res != 1) {
-                    printf("Invalid Eingabe, die Anzahl der Zutaten soll eine Zahl sein.\n");
-                    return 1;
+                    printf("Invalid Eingabe, die Anzahl der Zutaten soll eine Zahl sein, von vorne beginnen.\n");
+                    continue;
                 }
                 new_recipe->ingredient_count = ingredient_count;
                 new_recipe->ingredients = (Ingredient *) malloc(ingredient_count * sizeof(Ingredient));
@@ -259,7 +259,14 @@ int main() {
                 printf("3. Anleitung\n");
                 printf("Auswahl: ");
                 int edit_choice;
-                scanf("%d", &edit_choice);
+                char edit_term;
+                if(scanf("%1d%c", &edit_choice, &edit_term) != 2 || edit_term != '\n') {
+                    printf("Ungültige Eingabe. Bitte nur eine Zahl (1-3) eingeben.\n");
+                    return 1;
+                } else if(edit_choice < 1 || edit_choice > 3) {
+                    printf("Bitte nur eine Zahl zwischen 1 und 3 eingeben.\n");
+                    return 1;
+                }
                 switch (edit_choice) {
                     case 1: {
                         printf("Neuer Name: ");
