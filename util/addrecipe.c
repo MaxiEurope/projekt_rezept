@@ -5,6 +5,12 @@
 #include "str/duplicatestr.h"
 #include "recipe.h"
 
+/**
+ * @brief Adds a new recipe to the list of recipes
+ * 
+ * @param new_recipe New recipe to add
+ * @param recipe_count Updates the recipe count
+ */
 void addrecipe(Recipe *new_recipe, int *recipe_count) {
     char *json_data = readfile("recipes.json");
     if (json_data == NULL) {
