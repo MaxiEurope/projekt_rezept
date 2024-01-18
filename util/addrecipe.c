@@ -4,6 +4,7 @@
 #include "ext/cJSON.h"
 #include "str/duplicatestr.h"
 #include "recipe.h"
+#include "recipeutil.h"
 
 /**
  * @brief Adds a new recipe to the list of recipes

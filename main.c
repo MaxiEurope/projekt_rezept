@@ -9,6 +9,7 @@
 #include "util/recipeutil.h"
 
 /**
+ * @brief Clears the input buffer
  * https://stackoverflow.com/a/7898516
  */
 void clear_input_buffer() {
