@@ -51,4 +51,3 @@ char *uppercasefirst(char *str) {
     }
     return str;
 }
-

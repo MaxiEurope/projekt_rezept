@@ -53,19 +53,7 @@ int main(int argc, char *argv[]) {
                 break;
             }
             case 2: {
-                char *json_data = readfile(recipe_file);
-
-                Recipe *recipes = parserecipe(json_data, recipe_count);
-                if (recipes == NULL) {
-                    fprintf(stderr, "Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
-                    free(json_data);
-                    return 1;
-                }
-
-                printrecipes(recipes, recipe_count);
-                freerecipes(recipes, recipe_count);
-
-                free(json_data);
+                list(&recipe_count, recipe_file);
                 break;
             }
             case 3: {

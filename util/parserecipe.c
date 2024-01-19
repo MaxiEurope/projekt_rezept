@@ -8,7 +8,8 @@
 Recipe* parserecipe(const char* json_data, int recipe_count) {
     cJSON* json = cJSON_Parse(json_data);
     if (json == NULL) {
-        printf("Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
+        fprintf(stderr, "Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
+        exit(1);
         return NULL;
     }
 

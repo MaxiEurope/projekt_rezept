@@ -4,10 +4,16 @@
 #include <stdbool.h>
 
 #include "../util/str/strfunctions.h"
-#include "../util/str/getargs.h"
 #include "../util/recipe.h"
 #include "../util/recipeutil.h"
 
+/**
+ * @brief Adds a new recipe to the recipe list
+ *
+ * @param recipe_count The amount of recipes
+ * @param recipe_file Path to the recipe file
+ * @return Return true if adding recipe was successful, false otherwise
+ */
 bool add(int *recipe_count, char *recipe_file) {
     Recipe *new_recipe = (Recipe*)malloc(sizeof(Recipe));
 
