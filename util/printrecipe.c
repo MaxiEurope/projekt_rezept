@@ -2,8 +2,14 @@
 #include "recipe.h"
 #include "str/strfunctions.h"
 
+/**
+ * @brief Prints all recipes
+ *
+ * @param recipes The array of recipes
+ * @param count The number of recipes
+ */
 void printrecipes(Recipe* recipes, int count) {
-    printf("Lädt %d Rezepte 2\n", count);
+    printf("Lädt %d Rezepte\n", count);
     for (int i = 0; i < count; i++) {
         printf("Recipe %d:\n", i + 1);
         printf("Name: %s\n", recipes[i].name);

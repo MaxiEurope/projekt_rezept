@@ -5,6 +5,13 @@
 #include "ext/cJSON.h"
 #include "recipe.h"
 
+/**
+ * @brief Checks if a recipe has a specific ingredient
+ *
+ * @param recipe The recipe to check
+ * @param ingredient The ingredient to search for
+ * @return True if the recipe has the ingredient, false otherwise.
+ */
 bool hasingredient(Recipe* recipe, char* ingredient) {
     if (recipe == NULL || ingredient == NULL) {
         return false;
@@ -17,6 +24,14 @@ bool hasingredient(Recipe* recipe, char* ingredient) {
     return false;
 }
 
+/**
+ * @brief Searches for recipes that contain all the specified ingredients
+ *
+ * @param recipes The array of the recipes
+ * @param recipe_count The number of recipes
+ * @param ingredients The array of ingredients
+ * @param ingredient_count The number of ingredients
+ */
 void searchrecipe(Recipe* recipes, int recipe_count, char** ingredients, int ingredient_count) {
 
     printf("recipe_count: %d\n", recipe_count);

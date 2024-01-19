@@ -5,7 +5,7 @@
 /**
  * @brief Lists all recipes
  * 
- * @param recipe_count The amount of recipes
+ * @param recipe_count The number of recipes
  * @param recipe_file Path to the recipe file
  */
 void list(int *recipe_count, char *recipe_file) {

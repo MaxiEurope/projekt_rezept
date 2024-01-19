@@ -7,10 +7,8 @@
 /**
  * @brief Gets the count of the recipes in recipe file
  * 
- * @param recipe_count Pointer to the int variable
+ * @param recipe_count The number of recipes
  * @param recipe_file Path to the recipe file
- * 
- * @return void
  */
 void getrecipecount(int *recipe_count, char *recipe_file) {
     char *json_data = readfile(recipe_file);

@@ -2,10 +2,10 @@
 #include <stdlib.h>
 
 /**
- * Reads a file and returns its content as a string.
+ * @brief Reads a file and returns its content
  * 
- * @param filepath path to the file
- * @return pointer to the string containing the file content
+ * @param filepath Path to the file
+ * @return Pointer to the string containing the content
  */
 char* readfile(const char* filepath) {
     FILE* file = fopen(filepath, "r");

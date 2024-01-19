@@ -5,6 +5,13 @@
 #include "str/strfunctions.h"
 #include "recipe.h"
 
+/**
+ * @brief Parses JSON and returns an array of recipes
+ *
+ * @param json_data The JSON data to be parsed
+ * @param recipe_count The number of recipes, set to 0 at first
+ * @return Pointer to the array of recipes
+ */
 Recipe* parserecipe(const char* json_data, int recipe_count) {
     cJSON* json = cJSON_Parse(json_data);
     if (json == NULL) {
@@ -13,7 +20,6 @@ Recipe* parserecipe(const char* json_data, int recipe_count) {
         return NULL;
     }
 
-    printf("Lädt %d Rezepte\n", recipe_count);
     Recipe* recipes = (Recipe*)malloc(recipe_count * sizeof(Recipe));
 
     for (int i = 0; i < recipe_count; i++) {

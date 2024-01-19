@@ -1,6 +1,12 @@
 #include <stdlib.h>
 #include "recipe.h"
 
+/**
+ * @brief Frees the memory allocated for the recipes
+ * 
+ * @param recipes The array of recipes
+ * @param count The number of recipes
+ */
 void freerecipes(Recipe* recipes, int count) {
     if (recipes == NULL) {
         return;
