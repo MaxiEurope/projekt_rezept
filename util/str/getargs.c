@@ -23,6 +23,11 @@ int getargs(int argc, char *argv[], char **recipe_file) {
         return 1;
     }
 
+    if (strstr(*recipe_file, ".json") == NULL) {
+        fprintf(stderr, "Die Rezeptdatei muss eine JSON-Datei sein.\n");
+        return 1;
+    }
+
     // printf("Rezeptdatei: %s\n", *recipe_file); // debug
     return 0;
 }
