@@ -49,7 +49,7 @@ Recipe* parserecipe(const char* json_data, int recipe_count) {
             cJSON* ingredient_quantity = cJSON_GetObjectItem(ingredient, "quantity");
 
             if (ingredient_name != NULL && cJSON_IsString(ingredient_name)) {
-                recipes[i].ingredients[j].name = duplicatestr(ingredient_name->valuestring);
+                recipes[i].ingredients[j].name = lowercase(duplicatestr(ingredient_name->valuestring));
             } else {
                 recipes[i].ingredients[j].name = NULL;
             }
