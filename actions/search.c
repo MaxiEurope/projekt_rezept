@@ -51,4 +51,6 @@ bool search(int *recipe_count, char *recipe_file) {
     free(ingredients);
     freerecipes(recipes, *recipe_count);
     free(json_data);
+
+    return true;
 }
