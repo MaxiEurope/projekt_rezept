@@ -23,6 +23,6 @@ int getargs(int argc, char *argv[], char **recipe_file) {
         return 1;
     }
 
-    printf("Recipe file: %s\n", *recipe_file);
+    // printf("Rezeptdatei: %s\n", *recipe_file); // debug
     return 0;
 }

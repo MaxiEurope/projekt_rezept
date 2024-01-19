@@ -5,6 +5,7 @@
 
 #include "util/ext/cJSON.h"
 #include "util/str/duplicatestr.h"
+#include "util/str/getargs.h"
 #include "util/recipe.h"
 #include "util/recipeutil.h"
 
@@ -22,6 +23,10 @@ char *recipe_file = NULL;
 
 int main(int argc, char *argv[]) {
     printf("Hello, World!\n");
+
+    if (getargs(argc, argv, &recipe_file) != 0) {
+        return 1;
+    }
 
     getrecipecount(&recipe_count);
     printf("Es wurden %d Rezepte geladen.\n", recipe_count);
