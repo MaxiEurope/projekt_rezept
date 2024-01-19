@@ -7,6 +7,13 @@
 #include "../util/recipe.h"
 #include "../util/recipeutil.h"
 
+/**
+ * @brief Searches for recipes with specific ingredients
+ *
+ * @param recipe_count The number of recipes
+ * @param recipe_file Path to the recipe file
+ * @return True if the search was successful, false otherwise.
+ */
 bool search(int *recipe_count, char *recipe_file) {
     char *json_data = readfile(recipe_file);
 

@@ -8,6 +8,13 @@
 #include "../util/recipe.h"
 #include "../util/recipeutil.h"
 
+/**
+ * @brief Edits part of a recipe
+ *
+ * @param recipe_count The number of recipes
+ * @param recipe_file Path to the recipe file
+ * @return True if editing was successful, false otherwise.
+ */
 bool edit(int *recipe_count, char *recipe_file) {
     char *json_data = readfile(recipe_file);
 
@@ -193,4 +200,6 @@ bool edit(int *recipe_count, char *recipe_file) {
     cJSON_Delete(json_recipes);
     freerecipes(recipes, recipe_count);
     free(json_data);
+
+    return true;
 }
