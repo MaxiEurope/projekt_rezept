@@ -18,11 +18,6 @@ bool search(int *recipe_count, char *recipe_file) {
     char *json_data = readfile(recipe_file);
 
     Recipe *recipes = parserecipe(json_data, *recipe_count);
-    if (recipes == NULL) {
-        fprintf(stderr, "Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
-        free(json_data);
-        return 1;
-    }
 
     printf("Wie viele Zutaten möchtest du eingeben?\n");
     int ingredient_count;
