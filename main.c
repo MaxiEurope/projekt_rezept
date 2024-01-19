@@ -84,7 +84,7 @@ int main(int argc, char *argv[]) {
                         return 1;
                     }
                     clear_input_buffer();
-                    new_recipe->ingredients[i].name = duplicatestr(lowercase(ingredient_name));
+                    new_recipe->ingredients[i].name = lowercase(duplicatestr(ingredient_name));
 
                     printf("Menge: ");
                     char ingredient_quantity[100];
@@ -371,6 +371,13 @@ int main(int argc, char *argv[]) {
                 clear_input_buffer();
 
                 char **ingredients = (char**)malloc(ingredient_count * sizeof(char*));
+                if (!ingredients) {
+                    printf("Ein Fehler ist beim Zuweisen von Speich aufgetreten.\n");
+                    freerecipes(recipes, recipe_count);
+                    free(json_data);
+                    return 1;
+                }
+
                 for (int i = 0; i < ingredient_count; i++) {
                     printf("Zutat %d: ", i + 1);
                     char ingredient_name[101];
@@ -379,10 +386,14 @@ int main(int argc, char *argv[]) {
                         return 1;
                     }
                     clear_input_buffer();
-                    ingredients[i] = duplicatestr(lowercase(ingredient_name));
+                    ingredients[i] = lowercase(duplicatestr(ingredient_name));
                 }
                 searchrecipe(recipes, recipe_count, ingredients, ingredient_count);
 
+                for (int i = 0; i < ingredient_count; i++) {
+                    free(ingredients[i]);
+                }
+                free(ingredients);
                 freerecipes(recipes, recipe_count);
                 free(json_data);
                 break;
