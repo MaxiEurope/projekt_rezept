@@ -111,14 +111,10 @@ int main(int argc, char *argv[]) {
             }
             case 2: {
                 char *json_data = readfile(recipe_file);
-                if (json_data == NULL) {
-                    printf("Konnte Datei nicht öffnen.\n");
-                    return 1;
-                }
 
                 Recipe *recipes = parserecipe(json_data, recipe_count);
                 if (recipes == NULL) {
-                    printf("Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
+                    fprintf(stderr, "Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
                     free(json_data);
                     return 1;
                 }
@@ -131,14 +127,10 @@ int main(int argc, char *argv[]) {
             }
             case 3: {
                 char *json_data = readfile(recipe_file);
-                if (json_data == NULL) {
-                    printf("Konnte Datei nicht öffnen.\n");
-                    return 1;
-                }
 
                 Recipe *recipes = parserecipe(json_data, recipe_count);
                 if (recipes == NULL) {
-                    printf("Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
+                    fprintf(stderr, "Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
                     free(json_data);
                     return 1;
                 }
@@ -195,14 +187,10 @@ int main(int argc, char *argv[]) {
             }
             case 4: {
                 char *json_data = readfile(recipe_file);
-                if (json_data == NULL) {
-                    printf("Konnte Datei nicht öffnen.\n");
-                    return 1;
-                }
 
                 Recipe *recipes = parserecipe(json_data, recipe_count);
                 if (recipes == NULL) {
-                    printf("Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
+                    fprintf(stderr, "Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
                     free(json_data);
                     return 1;
                 }
@@ -349,14 +337,10 @@ int main(int argc, char *argv[]) {
             }
             case 5: {
                 char *json_data = readfile(recipe_file);
-                if (json_data == NULL) {
-                    printf("Konnte Datei nicht öffnen.\n");
-                    return 1;
-                }
 
                 Recipe *recipes = parserecipe(json_data, recipe_count);
                 if (recipes == NULL) {
-                    printf("Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
+                    fprintf(stderr, "Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
                     free(json_data);
                     return 1;
                 }

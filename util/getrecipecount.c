@@ -14,11 +14,6 @@
  */
 void getrecipecount(int *recipe_count, char *recipe_file) {
     char *json_data = readfile(recipe_file);
-    if (json_data == NULL) {
-        fprintf(stderr, "Konnte Datei nicht öffnen - das Programm wird terminiert.\n");
-        exit(1);
-        return;
-    }
 
     cJSON* json = cJSON_Parse(json_data);
     if (json == NULL) {

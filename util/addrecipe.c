@@ -15,14 +15,10 @@
  */
 void addrecipe(Recipe *new_recipe, int *recipe_count, char *recipe_file) {
     char *json_data = readfile(recipe_file);
-    if (json_data == NULL) {
-        printf("Konnte Datei nicht öffnen.\n");
-        return;
-    }
 
     cJSON *json_recipes = cJSON_Parse(json_data);
     if (json_recipes == NULL) {
-        printf("Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
+        fprintf(stderr, "Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
         free(json_data);
         return;
     }
