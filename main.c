@@ -45,7 +45,11 @@ int main(int argc, char *argv[]) {
         }
         switch (choice) {
             case 1: {
-                add(&recipe_count, recipe_file);
+                bool success = add(&recipe_count, recipe_file);
+                if (!success) {
+                    printf("Bitte Eingabe wiederholen.\n");
+                    clear_input_buffer();
+                }
                 break;
             }
             case 2: {

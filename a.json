@@ -18,4 +18,17 @@
 				"name":	"salz",
 				"quantity":	"3"
 			}]
+	}, {
+		"name":	"Eierspeise",
+		"ingredients":	[{
+				"name":	"ei",
+				"quantity":	"3"
+			}, {
+				"name":	"öl",
+				"quantity":	"10ml"
+			}, {
+				"name":	"salz",
+				"quantity":	"1g"
+			}],
+		"instructions":	"ei kochen essen lcker"
 	}]
