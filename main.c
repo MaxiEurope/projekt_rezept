@@ -358,7 +358,7 @@ int main(int argc, char *argv[]) {
                     ingredients[i] = duplicatestr(ingredient);
                 }
                 printf("Rezepte:\n");
-                searchrecipe(recipes, &recipe_count, ingredients, ingredient_count);
+                searchrecipe(recipes, recipe_count, ingredients, ingredient_count);
 
                 freerecipes(recipes, recipe_count);
                 free(json_data);

@@ -17,16 +17,16 @@ bool hasingredient(Recipe* recipe, char* ingredient) {
     return false;
 }
 
-void searchrecipe(Recipe* recipes, int *recipe_count, char** ingredients, int ingredient_count) {
+void searchrecipe(Recipe* recipes, int recipe_count, char** ingredients, int ingredient_count) {
     // debug
-    printf("recipe_count: %d\n", *recipe_count);
+    printf("recipe_count: %d\n", recipe_count);
     for (int i = 0; i < ingredient_count; i++) {
         printf("ingredient: %s\n", ingredients[i]);
     }
 
     int found = 0;
 
-    for (int i = 0; i < *recipe_count; i++) {
+    for (int i = 0; i < recipe_count; i++) {
         bool has_all = true;
         for (int j = 0; j < ingredient_count; j++) {
             if (!hasingredient(&recipes[i], ingredients[j])) {
