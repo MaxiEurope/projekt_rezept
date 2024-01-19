@@ -28,8 +28,7 @@ bool add(int *recipe_count, char *recipe_file) {
 
     printf("Anzahl Zutaten: ");
     int ingredient_count;
-    int res = scanf("%d", &ingredient_count);
-    if (res != 1) {
+    if (scanf("%d", &ingredient_count) != 1) {
         printf("Invalide Eingabe, die Anzahl der Zutaten soll eine Zahl sein.\n");
         return false;
     }

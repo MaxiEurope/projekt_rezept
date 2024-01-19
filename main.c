@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
             case 1: {
                 bool success = add(&recipe_count, recipe_file);
                 if (!success) {
-                    printf("Bitte Eingabe wiederholen.\n");
+                    printf("Bitte von vorne beginnen.\n");
                     clear_input_buffer();
                 }
                 break;
@@ -57,9 +57,14 @@ int main(int argc, char *argv[]) {
                 break;
             }
             case 3: {
+                if (recipe_count == 0) {
+                    printf("Es gibt keine Rezepte zum Löschen.\n");
+                    break;
+                }
+
                 bool success = delete(&recipe_count, recipe_file);
                 if (!success) {
-                    printf("Bitte Eingabe wiederholen.\n");
+                    printf("Bitte erneut versuchen.\n");
                     clear_input_buffer();
                 }
                 break;
@@ -226,8 +231,7 @@ int main(int argc, char *argv[]) {
 
                 printf("Wie viele Zutaten möchtest du eingeben?\n");
                 int ingredient_count;
-                int res = scanf("%d", &ingredient_count);
-                if (res != 1) {
+                if (scanf("%d", &ingredient_count) != 1) {
                     printf("Invalid Eingabe, die Anzahl der Zutaten soll eine Zahl sein.\n");
                     continue;
                 }

@@ -31,4 +31,14 @@
 				"quantity":	"1g"
 			}],
 		"instructions":	"ei kochen essen lcker"
+	}, {
+		"name":	"testttrtr",
+		"instructions":	"sex uwu",
+		"ingredients":	[{
+				"name":	"sada",
+				"quantity":	"1"
+			}, {
+				"name":	"maxi",
+				"quantity":	"1"
+			}]
 	}]
