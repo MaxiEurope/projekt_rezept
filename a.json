@@ -8,4 +8,14 @@
 				"name":	"test2",
 				"quantity":	"1"
 			}]
+	}, {
+		"name":	"cheese",
+		"instructions":	"doasj dsadasd asodjd39e32 s",
+		"ingredients":	[{
+				"name":	"käse",
+				"quantity":	"2g"
+			}, {
+				"name":	"salz",
+				"quantity":	"3"
+			}]
 	}]

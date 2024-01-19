@@ -1,6 +1,16 @@
+#include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-#include <stdlib.h>
+
+/**
+ * @brief Clears the input buffer
+ * https://stackoverflow.com/a/7898516
+ */
+void clear_input_buffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) { }
+}
 
 /**
  * @brief Duplicates a string
