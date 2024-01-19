@@ -1,0 +1,11 @@
+[{
+		"name":	"bla",
+		"instructions":	"Tomatensauce, Käse, Schinken, Champignons, Artischocken, Oliven, Peperoni, Zwiebeln",
+		"ingredients":	[{
+				"name":	"test1",
+				"quantity":	"2"
+			}, {
+				"name":	"test2",
+				"quantity":	"1"
+			}]
+	}]

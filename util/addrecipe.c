@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "ext/cJSON.h"
-#include "str/duplicatestr.h"
+#include "str/strfunctions.h"
 #include "recipe.h"
 #include "recipeutil.h"
 

@@ -1,5 +1,5 @@
-#ifndef RECIPEUTILS_H
-#define RECIPEUTILS_H
+#ifndef RECIPEUTIL_H
+#define RECIPEUTIL_H
 
 #include "recipe.h"
 

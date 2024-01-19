@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "ext/cJSON.h"
-#include "str/duplicatestr.h"
+#include "str/strfunctions.h"
 #include "recipe.h"
 
 Recipe* parserecipe(const char* json_data, int recipe_count) {
@@ -41,21 +41,23 @@ Recipe* parserecipe(const char* json_data, int recipe_count) {
 
         for (int j = 0; j < ingredient_count; j++) {
             cJSON* ingredient = cJSON_GetArrayItem(ingredients, j);
-            if (ingredient != NULL && cJSON_IsObject(ingredient)) {
-                cJSON* ingredient_name = cJSON_GetObjectItem(ingredient, "name");
-                cJSON* ingredient_quantity = cJSON_GetObjectItem(ingredient, "quantity");
+            if (ingredient == NULL || !cJSON_IsObject(ingredient)) {
+                continue;
+            }
 
-                if (ingredient_name != NULL && cJSON_IsString(ingredient_name)) {
-                    recipes[i].ingredients[j].name = duplicatestr(ingredient_name->valuestring);
-                } else {
-                    recipes[i].ingredients[j].name = NULL;
-                }
+            cJSON* ingredient_name = cJSON_GetObjectItem(ingredient, "name");
+            cJSON* ingredient_quantity = cJSON_GetObjectItem(ingredient, "quantity");
 
-                if (ingredient_quantity != NULL && cJSON_IsString(ingredient_quantity)) {
-                    recipes[i].ingredients[j].quantity = duplicatestr(ingredient_quantity->valuestring);
-                } else {
-                    recipes[i].ingredients[j].quantity = NULL;
-                }
+            if (ingredient_name != NULL && cJSON_IsString(ingredient_name)) {
+                recipes[i].ingredients[j].name = duplicatestr(uppercasefirst(ingredient_name->valuestring));
+            } else {
+                recipes[i].ingredients[j].name = NULL;
+            }
+
+            if (ingredient_quantity != NULL && cJSON_IsString(ingredient_quantity)) {
+                recipes[i].ingredients[j].quantity = duplicatestr(ingredient_quantity->valuestring);
+            } else {
+                recipes[i].ingredients[j].quantity = NULL;
             }
         }
         recipes[i].valid = 1;

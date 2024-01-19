@@ -5,7 +5,7 @@
 #include <ncurses.h>
 
 #include "util/ext/cJSON.h"
-#include "util/str/duplicatestr.h"
+#include "util/str/strfunctions.h"
 #include "util/str/getargs.h"
 #include "util/recipe.h"
 #include "util/recipeutil.h"
@@ -71,6 +71,7 @@ int main(int argc, char *argv[]) {
                     printf("Invalid Eingabe, die Anzahl der Zutaten soll eine Zahl sein.\n");
                     continue;
                 }
+                clear_input_buffer();
                 new_recipe->ingredient_count = ingredient_count;
 
                 new_recipe->ingredients = (Ingredient*)malloc(ingredient_count * sizeof(Ingredient));
@@ -82,7 +83,8 @@ int main(int argc, char *argv[]) {
                         printf("Ungültiger Name für eine Zutat.\n");
                         return 1;
                     }
-                    new_recipe->ingredients[i].name = duplicatestr(ingredient_name);
+                    clear_input_buffer();
+                    new_recipe->ingredients[i].name = duplicatestr(lowercase(ingredient_name));
 
                     printf("Menge: ");
                     char ingredient_quantity[100];
@@ -90,10 +92,10 @@ int main(int argc, char *argv[]) {
                         printf("Ungültiger Menge an Zutaten.\n");
                         return 1;
                     }
+                    clear_input_buffer();
                     new_recipe->ingredients[i].quantity = duplicatestr(ingredient_quantity);
                 }
 
-                clear_input_buffer();
                 printf("Anleitung:\n");
                 char instructions[1000];
                 if (fgets(instructions, sizeof(instructions), stdin) == NULL) {
@@ -366,6 +368,8 @@ int main(int argc, char *argv[]) {
                     printf("Invalid Eingabe, die Anzahl der Zutaten soll eine Zahl sein.\n");
                     continue;
                 }
+                clear_input_buffer();
+
                 char **ingredients = (char**)malloc(ingredient_count * sizeof(char*));
                 for (int i = 0; i < ingredient_count; i++) {
                     printf("Zutat %d: ", i + 1);
@@ -374,7 +378,8 @@ int main(int argc, char *argv[]) {
                         printf("Ungültiger Name für eine Zutat.\n");
                         return 1;
                     }
-                    ingredients[i] = duplicatestr(ingredient_name);
+                    clear_input_buffer();
+                    ingredients[i] = duplicatestr(lowercase(ingredient_name));
                 }
                 searchrecipe(recipes, recipe_count, ingredients, ingredient_count);
 
