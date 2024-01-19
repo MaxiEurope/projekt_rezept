@@ -10,7 +10,7 @@
  * @brief Adds a new recipe to the list of recipes
  * 
  * @param new_recipe New recipe to add
- * @param recipe_count Updates the recipe count
+ * @param recipe_count Updates the recipe count number
  * @param recipe_file Path to the recipe file
  */
 void addrecipe(Recipe *new_recipe, int *recipe_count, char *recipe_file) {
