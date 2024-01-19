@@ -65,7 +65,7 @@ int main(int argc, char *argv[]) {
                     break;
                 }
 
-                bool success = delete(&recipe_count, recipe_file);
+                bool success = remove(&recipe_count, recipe_file);
                 if (!success) {
                     printf("Bitte erneut versuchen.\n");
                     clear_input_buffer();

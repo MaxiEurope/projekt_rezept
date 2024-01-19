@@ -9,13 +9,13 @@
 #include "../util/recipeutil.h"
 
 /**
- * @brief Deletes a recipe from the recipe list
+ * @brief Removes a recipe from the recipe list
  *
  * @param recipe_count The number of recipes
  * @param recipe_file Path to the recipe file
  * @return Return true if deleting a recipe was successful, false otherwise
  */
-bool delete(int *recipe_count, char *recipe_file) {
+bool remove(int *recipe_count, char *recipe_file) {
     char *json_data = readfile(recipe_file);
 
     Recipe *recipes = parserecipe(json_data, *recipe_count);
