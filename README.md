@@ -29,7 +29,7 @@ gcc -std=c99 -Wall -Wextra -pedantic -Wno-unused-parameter main.c -lncurses util
   * Allow the user then to take an action on the respective recipe (e.g., edit it).
 
 ### &#9744; Task 7 (10 points)
-  *** Provide a way within the `ncurses` interface to apply filtering of the recipes similar to the search modes described above.
+  * Provide a way within the `ncurses` interface to apply filtering of the recipes similar to the search modes described above.
 
 ### &#9744; Task 8 (15 points)
   * The program arguments are handled by `getopt(3)`.

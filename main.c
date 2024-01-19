@@ -18,8 +18,9 @@ void clear_input_buffer() {
 }
 
 int recipe_count = 0;
+char *recipe_file = NULL;
 
-int main() {
+int main(int argc, char *argv[]) {
     printf("Hello, World!\n");
 
     getrecipecount(&recipe_count);
