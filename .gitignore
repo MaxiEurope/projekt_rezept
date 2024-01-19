@@ -2,3 +2,7 @@ a.out
 /tests
 recipe
 Doxygen.bak
+/doc
+Doxyfile
+info.txt
+tasks.txt
