@@ -11,10 +11,10 @@
 void printrecipes(Recipe* recipes, int count) {
     printf("Lädt %d Rezepte\n", count);
     for (int i = 0; i < count; i++) {
-        printf("Recipe %d:\n", i + 1);
+        printf("Rezept %d:\n", i + 1);
         printf("Name: %s\n", recipes[i].name);
-        printf("Instructions: %s\n", recipes[i].instructions);
-        printf("Ingredients:\n");
+        printf("Anleitung: %s\n", recipes[i].instructions);
+        printf("Zutaten:\n");
         for (int j = 0; j < recipes[i].ingredient_count; j++) {
             printf("- %s: %s\n", uppercasefirst(recipes[i].ingredients[j].name), recipes[i].ingredients[j].quantity);
         }

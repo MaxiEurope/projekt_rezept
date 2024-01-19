@@ -37,12 +37,13 @@ int main(int argc, char *argv[]) {
         char term;
         if(scanf("%1d%c", &choice, &term) != 2 || term != '\n') {
             printf("Ungültige Eingabe. Bitte nur eine Zahl (1-6) eingeben.\n");
-            while(getchar() != '\n');
+            clear_input_buffer();
             continue;
         } else if(choice < 1 || choice > 6) {
             printf("Bitte nur eine Zahl zwischen 1 und 6 eingeben.\n");
             continue;
         }
+
         switch (choice) {
             case 1: {
                 bool success = add(&recipe_count, recipe_file);
@@ -80,8 +81,16 @@ int main(int argc, char *argv[]) {
                 }
 
                 printf("Welches Rezept möchtest du bearbeiten?\n");
+
+                for (int i = 0; i < recipe_count; i++) {
+                    printf("[%d] %s\n", i + 1, recipes[i].name);
+                }
+                printf("Auswahl: ");
                 int recipe_index;
-                scanf("%d", &recipe_index);
+                if (scanf("%d", &recipe_index) != 1) {
+                    printf("Invalide Eingabe, die Nummer des Rezepts soll eine Zahl sein.\n");
+                    return false;
+                }
                 if (recipe_index < 1 || recipe_index > recipe_count) {
                     printf("Ungültige Eingabe.\n");
                     freerecipes(recipes, recipe_count);
@@ -220,49 +229,16 @@ int main(int argc, char *argv[]) {
                 break;
             }
             case 5: {
-                char *json_data = readfile(recipe_file);
-
-                Recipe *recipes = parserecipe(json_data, recipe_count);
-                if (recipes == NULL) {
-                    fprintf(stderr, "Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
-                    free(json_data);
-                    return 1;
+                if (recipe_count == 0) {
+                    printf("Es gibt keine Rezepte zum Durchsuchen.\n");
+                    break;
                 }
 
-                printf("Wie viele Zutaten möchtest du eingeben?\n");
-                int ingredient_count;
-                if (scanf("%d", &ingredient_count) != 1) {
-                    printf("Invalid Eingabe, die Anzahl der Zutaten soll eine Zahl sein.\n");
-                    continue;
-                }
-                clear_input_buffer();
-
-                char **ingredients = (char**)malloc(ingredient_count * sizeof(char*));
-                if (!ingredients) {
-                    printf("Ein Fehler ist beim Zuweisen von Speich aufgetreten.\n");
-                    freerecipes(recipes, recipe_count);
-                    free(json_data);
-                    return 1;
-                }
-
-                for (int i = 0; i < ingredient_count; i++) {
-                    printf("Zutat %d: ", i + 1);
-                    char ingredient_name[101];
-                    if (scanf("%100[^\n]", ingredient_name) != 1) {
-                        printf("Ungültiger Name für eine Zutat.\n");
-                        return 1;
-                    }
+                bool success = search(&recipe_count, recipe_file);
+                if (!success) {
+                    printf("Bitte von vorne beginnen.\n");
                     clear_input_buffer();
-                    ingredients[i] = lowercase(duplicatestr(ingredient_name));
                 }
-                searchrecipe(recipes, recipe_count, ingredients, ingredient_count);
-
-                for (int i = 0; i < ingredient_count; i++) {
-                    free(ingredients[i]);
-                }
-                free(ingredients);
-                freerecipes(recipes, recipe_count);
-                free(json_data);
                 break;
             }
             case 6: {
