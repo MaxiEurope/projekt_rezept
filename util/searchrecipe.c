@@ -34,10 +34,10 @@ bool hasingredient(Recipe* recipe, char* ingredient) {
  */
 void searchrecipe(Recipe* recipes, int recipe_count, char** ingredients, int ingredient_count) {
 
-    printf("recipe_count: %d\n", recipe_count);
-    for (int i = 0; i < ingredient_count; i++) {
-        printf("ingredient: %s\n", ingredients[i]);
-    }
+    // printf("recipe_count: %d\n", recipe_count);
+    // for (int i = 0; i < ingredient_count; i++) {
+    //     printf("ingredient: %s\n", ingredients[i]);
+    // }
 
     printf("Suche nach Rezepten:\n");
 

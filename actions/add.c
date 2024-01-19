@@ -20,16 +20,16 @@ bool add(int *recipe_count, char *recipe_file) {
     printf("Name: ");
     char name[101];
     if (scanf("%100[^\n]", name) != 1) {
-        printf("Ungültiger Rezept Name.\n");
+        fprintf(stderr, "Ungültiger Rezept Name.\n");
         return false;
     }
-    name[strcspn(name, "\n")] = '\0'; // https://stackoverflow.com/a/28462221
+    clear_input_buffer();
     new_recipe->name = duplicatestr(name);
 
     printf("Anzahl Zutaten: ");
     int ingredient_count;
     if (scanf("%d", &ingredient_count) != 1) {
-        printf("Invalide Eingabe, die Anzahl der Zutaten soll eine Zahl sein.\n");
+        fprintf(stderr, "Invalide Eingabe, die Anzahl der Zutaten soll eine Zahl sein.\n");
         return false;
     }
     clear_input_buffer();
@@ -41,26 +41,28 @@ bool add(int *recipe_count, char *recipe_file) {
         printf("Name: ");
         char ingredient_name[101];
         if (scanf("%100[^\n]", ingredient_name) != 1) {
-            printf("Ungültiger Name für eine Zutat.\n");
+            fprintf(stderr, "Ungültiger Name für eine Zutat.\n");
             return false;
         }
         clear_input_buffer();
+
         new_recipe->ingredients[i].name = lowercase(duplicatestr(ingredient_name));
 
         printf("Menge: ");
         char ingredient_quantity[100];
         if (scanf("%100[^\n]", ingredient_quantity) != 1) {
-            printf("Ungültiger Menge an Zutaten.\n");
+            fprintf(stderr, "Ungültiger Menge an Zutaten.\n");
             return false;
         }
         clear_input_buffer();
+
         new_recipe->ingredients[i].quantity = duplicatestr(ingredient_quantity);
     }
 
     printf("Anleitung:\n");
     char instructions[1000];
     if (fgets(instructions, sizeof(instructions), stdin) == NULL) {
-        printf("Ungültige Eingabe.\n");
+        fprintf(stderr, "Ungültige Eingabe.\n");
         return false;
     }
     instructions[strcspn(instructions, "\n")] = '\0'; // https://stackoverflow.com/a/28462221
