@@ -1,7 +1,12 @@
-test
-### compile and run
+# Recipe project
+
+## Compile
 ```bash
-gcc -std=c99 -Wall -Wextra -pedantic -Wno-unused-parameter main.c -lncurses util/ext/cJSON.c util/str/duplicatestr.c util/str/getargs.c util/addrecipe.c util/freerecipes.c util/getrecipecount.c util/parserecipe.c util/printrecipe.c util/readfile.c util/searchrecipe.c; ./a.out
+gcc -std=c99 -Wall -Wextra -pedantic -Wno-unused-parameter main.c -lncurses util/ext/cJSON.c util/str/duplicatestr.c util/str/getargs.c util/addrecipe.c util/freerecipes.c util/getrecipecount.c util/parserecipe.c util/printrecipe.c util/readfile.c util/searchrecipe.c -o recipe
+```
+## Run
+```bash
+./recipe -f recipes.json
 ```
 
 ## Tasks &#9744;
