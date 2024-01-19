@@ -5,22 +5,25 @@
 #include "recipeutil.h"
 
 /**
- * @brief Gets the count of the recipes in recipes.json
+ * @brief Gets the count of the recipes in recipe file
  * 
  * @param recipe_count Pointer to the int variable
+ * @param recipe_file Path to the recipe file
  * 
  * @return void
  */
-void getrecipecount(int *recipe_count) {
-    char *json_data = readfile("recipes.json");
+void getrecipecount(int *recipe_count, char *recipe_file) {
+    char *json_data = readfile(recipe_file);
     if (json_data == NULL) {
-        printf("Konnte Datei nicht öffnen.\n");
+        fprintf(stderr, "Konnte Datei nicht öffnen - das Programm wird terminiert.\n");
+        exit(1);
         return;
     }
 
     cJSON* json = cJSON_Parse(json_data);
     if (json == NULL) {
-        printf("Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
+        fprintf(stderr, "Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
+        exit(1);
         return;
     }
 

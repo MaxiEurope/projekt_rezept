@@ -11,9 +11,10 @@
  * 
  * @param new_recipe New recipe to add
  * @param recipe_count Updates the recipe count
+ * @param recipe_file Path to the recipe file
  */
-void addrecipe(Recipe *new_recipe, int *recipe_count) {
-    char *json_data = readfile("recipes.json");
+void addrecipe(Recipe *new_recipe, int *recipe_count, char *recipe_file) {
+    char *json_data = readfile(recipe_file);
     if (json_data == NULL) {
         printf("Konnte Datei nicht öffnen.\n");
         return;
@@ -48,7 +49,7 @@ void addrecipe(Recipe *new_recipe, int *recipe_count) {
         free(json_data);
         return;
     }
-    FILE *file = fopen("recipes.json", "w");
+    FILE *file = fopen(recipe_file, "w");
     if (file == NULL) {
         printf("Konnte Datei nicht öffnen.\n");
         free(updated_json_data);

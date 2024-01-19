@@ -10,7 +10,7 @@
 char* readfile(const char* filepath) {
     FILE* file = fopen(filepath, "r");
     if (file == NULL) {
-        printf("Ein Fehler ist beim Lesen der Datei aufgetreten.\n");
+        printf("Ein Fehler ist beim Lesen der Datei aufgetreten, die Datei scheint nicht zu existieren.\n");
         return NULL;
     }
 
