@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <ncurses.h>
 
 #include "util/ext/cJSON.h"
 #include "util/str/duplicatestr.h"
@@ -24,7 +25,7 @@ char *recipe_file = NULL;
 int main(int argc, char *argv[]) {
     printf("Hello, World!\n");
 
-    if (getargs(argc, argv, &recipe_file) != 0) {
+    if (!getargs(argc, argv, &recipe_file)) {
         return 1;
     }
 
@@ -52,7 +53,8 @@ int main(int argc, char *argv[]) {
         }
         switch (choice) {
             case 1: {
-                Recipe *new_recipe = (Recipe *) malloc(sizeof(Recipe));
+                Recipe *new_recipe = (Recipe*)malloc(sizeof(Recipe));
+
                 printf("Name: ");
                 char name[101];
                 if (scanf("%100[^\n]", name) != 1) {
@@ -61,29 +63,38 @@ int main(int argc, char *argv[]) {
                 }
                 name[strcspn(name, "\n")] = '\0'; // https://stackoverflow.com/a/28462221
                 new_recipe->name = duplicatestr(name);
-                clear_input_buffer();
+
                 printf("Anzahl Zutaten: ");
                 int ingredient_count;
                 int res = scanf("%d", &ingredient_count);
                 if (res != 1) {
-                    printf("Invalid Eingabe, die Anzahl der Zutaten soll eine Zahl sein, von vorne beginnen.\n");
+                    printf("Invalid Eingabe, die Anzahl der Zutaten soll eine Zahl sein.\n");
                     continue;
                 }
                 new_recipe->ingredient_count = ingredient_count;
-                new_recipe->ingredients = (Ingredient *) malloc(ingredient_count * sizeof(Ingredient));
+
+                new_recipe->ingredients = (Ingredient*)malloc(ingredient_count * sizeof(Ingredient));
                 for (int i = 0; i < ingredient_count; i++) {
                     printf("Zutat %d:\n", i + 1);
                     printf("Name: ");
-                    char ingredient_name[100];
-                    scanf("%s", ingredient_name);
+                    char ingredient_name[101];
+                    if (scanf("%100[^\n]", ingredient_name) != 1) {
+                        printf("Ungültiger Name für eine Zutat.\n");
+                        return 1;
+                    }
                     new_recipe->ingredients[i].name = duplicatestr(ingredient_name);
+
                     printf("Menge: ");
                     char ingredient_quantity[100];
-                    scanf("%s", ingredient_quantity);
+                    if (scanf("%100[^\n]", ingredient_quantity) != 1) {
+                        printf("Ungültiger Menge an Zutaten.\n");
+                        return 1;
+                    }
                     new_recipe->ingredients[i].quantity = duplicatestr(ingredient_quantity);
                 }
-                printf("Anleitung:\n");
+
                 clear_input_buffer();
+                printf("Anleitung:\n");
                 char instructions[1000];
                 if (fgets(instructions, sizeof(instructions), stdin) == NULL) {
                     printf("Ungültige Eingabe.\n");
@@ -91,6 +102,7 @@ int main(int argc, char *argv[]) {
                 }
                 instructions[strcspn(instructions, "\n")] = '\0'; // https://stackoverflow.com/a/28462221
                 new_recipe->instructions = duplicatestr(instructions);
+
                 addrecipe(new_recipe, &recipe_count, recipe_file);
                 free(new_recipe);
                 break;
@@ -167,8 +179,8 @@ int main(int argc, char *argv[]) {
                     return 1;
                 }
 
-                printf("Rezept gelöscht.\n");
-                printf("Rezeptanzahl: %d\n", recipe_count - 1);
+                (recipe_count)--;
+                printf("Rezept erfolgreich gelöscht.\n");
 
                 fprintf(file, "%s\n", updated_json_data);
                 fclose(file);
@@ -349,15 +361,21 @@ int main(int argc, char *argv[]) {
 
                 printf("Wie viele Zutaten möchtest du eingeben?\n");
                 int ingredient_count;
-                scanf("%d", &ingredient_count);
-                char **ingredients = (char **) malloc(ingredient_count * sizeof(char *));
+                int res = scanf("%d", &ingredient_count);
+                if (res != 1) {
+                    printf("Invalid Eingabe, die Anzahl der Zutaten soll eine Zahl sein.\n");
+                    continue;
+                }
+                char **ingredients = (char**)malloc(ingredient_count * sizeof(char*));
                 for (int i = 0; i < ingredient_count; i++) {
                     printf("Zutat %d: ", i + 1);
-                    char ingredient[100];
-                    scanf("%s", ingredient);
-                    ingredients[i] = duplicatestr(ingredient);
+                    char ingredient_name[101];
+                    if (scanf("%100[^\n]", ingredient_name) != 1) {
+                        printf("Ungültiger Name für eine Zutat.\n");
+                        return 1;
+                    }
+                    ingredients[i] = duplicatestr(ingredient_name);
                 }
-                printf("Rezepte:\n");
                 searchrecipe(recipes, recipe_count, ingredients, ingredient_count);
 
                 freerecipes(recipes, recipe_count);
