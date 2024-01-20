@@ -4,12 +4,12 @@
 #include <stdbool.h>
 #include <ncurses.h>
 
-#include "actions/actions.h"
-#include "util/ext/cJSON.h"
-#include "util/str/strfunctions.h"
-#include "util/str/getargs.h"
-#include "util/recipe.h"
-#include "util/recipeutil.h"
+#include "src/actions/actions.h"
+#include "src/util/ext/cJSON.h"
+#include "src/util/str/strfunctions.h"
+#include "src/util/str/getargs.h"
+#include "src/util/recipe.h"
+#include "src/util/recipeutil.h"
 
 int recipe_count = 0;
 char *recipe_file = NULL;
