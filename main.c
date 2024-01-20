@@ -19,8 +19,6 @@ int main(int argc, char *argv[]) {
     echo();
     nocbreak();
     clear();
-
-    printw("Hello, World!\n");
     refresh();
 
     if (!getargs(argc, argv, &recipe_file)) {
@@ -126,6 +124,7 @@ int main(int argc, char *argv[]) {
                 break;
             }
             case 6: {
+                clear();
                 printw("Programm wird beendet, bye.\n");
                 refresh();
                 napms(1000);
