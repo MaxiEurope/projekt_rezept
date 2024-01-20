@@ -5,6 +5,7 @@
 #include "str/strfunctions.h"
 #include "recipe.h"
 #include "recipeutil.h"
+#include <ncurses.h>
 
 /**
  * @brief Adds a new recipe to the list of recipes
@@ -18,7 +19,9 @@ void addrecipe(Recipe *new_recipe, int *recipe_count, char *recipe_file) {
 
     cJSON *json_recipes = cJSON_Parse(json_data);
     if (json_recipes == NULL) {
-        fprintf(stderr, "Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
+        clear();
+        printw("Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
+        refresh();
         free(json_data);
         return;
     }
@@ -40,14 +43,19 @@ void addrecipe(Recipe *new_recipe, int *recipe_count, char *recipe_file) {
 
     char *updated_json_data = cJSON_Print(json_recipes);
     if (updated_json_data == NULL) {
-        printf("Ein Fehler ist beim Speichern aufgetreten.\n");
+        clear();
+        printw("Ein Fehler ist beim Speichern aufgetreten.\n");
+        refresh();
         cJSON_Delete(json_recipes);
         free(json_data);
         return;
     }
+
     FILE *file = fopen(recipe_file, "w");
     if (file == NULL) {
-        printf("Konnte Datei nicht öffnen.\n");
+        clear();
+        printw("Konnte Datei nicht öffnen.\n");
+        refresh();
         free(updated_json_data);
         cJSON_Delete(json_recipes);
         free(json_data);
@@ -55,8 +63,9 @@ void addrecipe(Recipe *new_recipe, int *recipe_count, char *recipe_file) {
     }
 
     (*recipe_count)++;
-    printf("Rezept hinzugefügt.\n");
-    printf("Rezeptanzahl: %d\n", *recipe_count);
+    printw("Rezept hinzugefügt.\n");
+    printw("Rezeptanzahl: %d\n", *recipe_count);
+    refresh();
 
     fprintf(file, "%s\n", updated_json_data);
     fclose(file);

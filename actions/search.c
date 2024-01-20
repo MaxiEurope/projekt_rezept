@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <ncurses.h>
 
 #include "../util/str/strfunctions.h"
 #include "../util/recipe.h"
@@ -19,30 +20,36 @@ bool search(int *recipe_count, char *recipe_file) {
 
     Recipe *recipes = parserecipe(json_data, *recipe_count);
 
-    printf("Wie viele Zutaten möchtest du eingeben?\n");
+    printw("Wie viele Zutaten möchtest du eingeben? ");
+    refresh();
     int ingredient_count;
-    if (scanf("%d", &ingredient_count) != 1) {
-        printf("Invalid Eingabe, die Anzahl der Zutaten soll eine Zahl sein.\n");
+    if (scanw("%d", &ingredient_count) != 1) {
+        clear();
+        printw("Invalid Eingabe, die Anzahl der Zutaten soll eine Zahl sein.\n");
+        refresh();
         return false;
     }
-    clear_input_buffer();
 
     char **ingredients = (char**)malloc(ingredient_count * sizeof(char*));
     if (!ingredients) {
-        printf("Ein Fehler ist beim Zuweisen von Speicher aufgetreten.\n");
+        clear();
+        printw("Ein Fehler ist beim Zuweisen von Speicher aufgetreten.\n");
+        refresh();
         freerecipes(recipes, *recipe_count);
         free(json_data);
         return 1;
     }
 
     for (int i = 0; i < ingredient_count; i++) {
-        printf("Zutat %d: ", i + 1);
+        printw("Zutat %d: ", i + 1);
+        refresh();
         char ingredient_name[101];
-        if (scanf("%100[^\n]", ingredient_name) != 1) {
-            printf("Ungültiger Name für eine Zutat.\n");
+        if (scanw("%100[^\n]", ingredient_name) != 1) {
+            clear();
+            printw("Ungültiger Name für eine Zutat.\n");
+            refresh();
             return 1;
         }
-        clear_input_buffer();
         ingredients[i] = lowercase(duplicatestr(ingredient_name));
     }
     searchrecipe(recipes, *recipe_count, ingredients, ingredient_count);

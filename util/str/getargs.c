@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <unistd.h>
 #include <bits/getopt_core.h>
+#include <ncurses.h>
 
 /**
  * @brief Parses cmd line args
@@ -22,21 +23,23 @@ bool getargs(int argc, char *argv[], char **recipe_file) {
             *recipe_file = optarg;
             break;
         default: /* '?' */
-            fprintf(stderr, "Verwendung: %s -f Rezeptdatei\n", argv[0]);
+            printw("Verwendung: %s -f Rezeptdatei\n", argv[0]);
+            refresh();
             return false;
         }
     }
 
     if (*recipe_file == NULL) {
-        fprintf(stderr, "Der Pfad für die Rezeptdatei muss hinter -f angegeben werden.\n");
+        printw("Der Pfad für die Rezeptdatei muss hinter -f angegeben werden.\n");
+        refresh();
         return false;
     }
 
     if (strstr(*recipe_file, ".json") == NULL) {
-        fprintf(stderr, "Die Rezeptdatei muss eine JSON-Datei sein.\n");
+        printw("Die Rezeptdatei muss eine JSON-Datei sein.\n");
+        refresh();
         return false;
     }
 
-    // printf("Rezeptdatei: %s\n", *recipe_file); // debug
     return true;
 }

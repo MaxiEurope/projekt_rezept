@@ -9,36 +9,13 @@
 			}],
 		"instructions":	"Tomatensauce, Käse, Schinken, Champignons, Artischocken, Oliven, Peperoni, Zwiebeln"
 	}, {
-		"name":	"cheese",
-		"instructions":	"doasj dsadasd asodjd39e32 s",
+		"name":	"käse mit irgendwas",
 		"ingredients":	[{
 				"name":	"käse",
 				"quantity":	"2g"
 			}, {
 				"name":	"salz",
 				"quantity":	"3"
-			}]
-	}, {
-		"name":	"Eierspeise",
-		"ingredients":	[{
-				"name":	"ei",
-				"quantity":	"3"
-			}, {
-				"name":	"öl",
-				"quantity":	"10ml"
-			}, {
-				"name":	"salz",
-				"quantity":	"1g"
 			}],
-		"instructions":	"ei kochen essen lcker"
-	}, {
-		"name":	"tester bla",
-		"ingredients":	[{
-				"name":	"sada",
-				"quantity":	"1"
-			}, {
-				"name":	"maxi",
-				"quantity":	"1"
-			}],
-		"instructions":	"ab c"
+		"instructions":	"doasj dsadasd asodjd39e32 s"
 	}]

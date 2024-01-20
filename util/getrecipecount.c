@@ -3,6 +3,7 @@
 #include "ext/cJSON.h"
 #include "recipe.h"
 #include "recipeutil.h"
+#include <ncurses.h>
 
 /**
  * @brief Gets the count of the recipes in recipe file
@@ -15,7 +16,10 @@ void getrecipecount(int *recipe_count, char *recipe_file) {
 
     cJSON* json = cJSON_Parse(json_data);
     if (json == NULL) {
-        fprintf(stderr, "Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
+        clear();
+        printw("Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
+        refresh();
+        napms(2000);
         exit(1);
         return;
     }

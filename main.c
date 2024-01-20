@@ -15,95 +15,126 @@ int recipe_count = 0;
 char *recipe_file = NULL;
 
 int main(int argc, char *argv[]) {
-    printf("Hello, World!\n");
+    initscr();
+    echo();
+    nocbreak();
+    clear();
+
+    printw("Hello, World!\n");
+    refresh();
 
     if (!getargs(argc, argv, &recipe_file)) {
         return 1;
     }
 
     getrecipecount(&recipe_count, recipe_file);
-    printf("Es wurden %d Rezepte geladen.\n", recipe_count);
+    printw("Es wurden %d Rezepte geladen.\n", recipe_count);
+    refresh();
 
     while (1) {
-        printf("Was möchtest du tun?\n");
-        printf("1. Rezept hinzufügen\n");
-        printf("2. Rezept anzeigen\n");
-        printf("3. Rezept löschen\n");
-        printf("4. Rezept bearbeiten\n");
-        printf("5. Rezept suchen\n");
-        printf("6. Beenden\n");
-        printf("Auswahl: ");
+        printw("Was möchtest du tun?\n");
+        printw("1. Rezept hinzufügen\n");
+        printw("2. Rezept anzeigen\n");
+        printw("3. Rezept löschen\n");
+        printw("4. Rezept bearbeiten\n");
+        printw("5. Rezept suchen\n");
+        printw("6. Beenden\n");
+        printw("Auswahl: ");
+        refresh();
 
         int choice;
-        char term;
-        if(scanf("%1d%c", &choice, &term) != 2 || term != '\n') {
-            printf("Ungültige Eingabe. Bitte nur eine Zahl (1-6) eingeben.\n");
-            clear_input_buffer();
+        if(scanw("%1d", &choice) != 1) {
+            clear();
+            printw("Ungültige Eingabe. Bitte nur eine Zahl (1-6) eingeben.\n");
+            refresh();
             continue;
         } else if(choice < 1 || choice > 6) {
-            printf("Bitte nur eine Zahl zwischen 1 und 6 eingeben.\n");
+            clear();
+            printw("Bitte nur eine Zahl zwischen 1 und 6 eingeben.\n");
+            refresh();
             continue;
         }
 
-
         switch (choice) {
             case 1: {
+                clear();
                 bool success = add(&recipe_count, recipe_file);
                 if (!success) {
-                    printf("Bitte von vorne beginnen.\n");
-                    clear_input_buffer();
+                    printw("Bitte von vorne beginnen.\n");
+                    refresh();
                 }
                 break;
             }
             case 2: {
-                list(&recipe_count, recipe_file);
+                clear();
+                if (recipe_count == 0) {
+                    printw("Es gibt keine Rezepte zum Lesen.\n");
+                    refresh();
+                    break;
+                }
+
+                bool success = list(&recipe_count, recipe_file);
+                if (!success) {
+                    printw("Bitte erneut versuchen.\n");
+                    refresh();
+                }
                 break;
             }
             case 3: {
+                clear();
                 if (recipe_count == 0) {
-                    printf("Es gibt keine Rezepte zum Löschen.\n");
+                    printw("Es gibt keine Rezepte zum Löschen.\n");
+                    refresh();
                     break;
                 }
 
                 bool success = del(&recipe_count, recipe_file);
                 if (!success) {
-                    printf("Bitte erneut versuchen.\n");
-                    clear_input_buffer();
+                    printw("Bitte erneut versuchen.\n");
+                    refresh();
                 }
                 break;
             }
             case 4: {
+                clear();
                 if (recipe_count == 0) {
-                    printf("Es gibt keine Rezepte zum Editieren.\n");
+                    printw("Es gibt keine Rezepte zum Editieren.\n");
+                    refresh();
                     break;
                 }
 
                 bool success = edit(&recipe_count, recipe_file);
                 if (!success) {
-                    printf("Bitte von vorne beginnen.\n");
-                    clear_input_buffer();
+                    printw("Bitte von vorne beginnen.\n");
+                    refresh();
                 }
                 break;
             }
             case 5: {
+                clear();
                 if (recipe_count == 0) {
-                    printf("Es gibt keine Rezepte zum Durchsuchen.\n");
+                    printw("Es gibt keine Rezepte zum Durchsuchen.\n");
+                    refresh();
                     break;
                 }
 
                 bool success = search(&recipe_count, recipe_file);
                 if (!success) {
-                    printf("Bitte von vorne beginnen.\n");
-                    clear_input_buffer();
+                    printw("Bitte von vorne beginnen.\n");
+                    refresh();
                 }
                 break;
             }
             case 6: {
-                printf("Programm wird beendet.\n");
+                printw("Programm wird beendet.\n");
+                refresh();
+                endwin();
                 return 0;
             }
             default: {
-                printf("Ungültige Eingabe.\n");
+                printw("Ungültige Eingabe.\n");
+                refresh();
+                endwin();
                 return 1;
             }
         }

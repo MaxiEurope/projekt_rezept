@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <ncurses.h>
 
 #include "../util/str/strfunctions.h"
 #include "../util/recipe.h"
@@ -17,19 +18,25 @@
 bool add(int *recipe_count, char *recipe_file) {
     Recipe *new_recipe = (Recipe*)malloc(sizeof(Recipe));
 
-    printf("Name: ");
+    printw("Name: ");
+    refresh();
     char name[101];
-    if (scanf("%100[^\n]", name) != 1) {
-        fprintf(stderr, "Ungültiger Rezept Name.\n");
+    if (scanw("%100[^\n]", name) != 1) {
+        clear();
+        printw("Ungültiger Rezept Name.\n");
+        refresh();
         return false;
     }
     clear_input_buffer();
     new_recipe->name = duplicatestr(name);
 
-    printf("Anzahl Zutaten: ");
+    printw("Anzahl Zutaten: ");
+    refresh();
     int ingredient_count;
-    if (scanf("%d", &ingredient_count) != 1) {
-        fprintf(stderr, "Invalide Eingabe, die Anzahl der Zutaten soll eine Zahl sein.\n");
+    if (scanw("%d", &ingredient_count) != 1) {
+        clear();
+        printw("Invalide Eingabe, die Anzahl der Zutaten soll eine Zahl sein.\n");
+        refresh();
         return false;
     }
     clear_input_buffer();
@@ -37,21 +44,27 @@ bool add(int *recipe_count, char *recipe_file) {
 
     new_recipe->ingredients = (Ingredient*)malloc(ingredient_count * sizeof(Ingredient));
     for (int i = 0; i < ingredient_count; i++) {
-        printf("Zutat %d:\n", i + 1);
-        printf("Name: ");
+        printw("Zutat %d:\n", i + 1);
+        printw("Name: ");
+        refresh();
         char ingredient_name[101];
-        if (scanf("%100[^\n]", ingredient_name) != 1) {
-            fprintf(stderr, "Ungültiger Name für eine Zutat.\n");
+        if (scanw("%100[^\n]", ingredient_name) != 1) {
+            clear();
+            printw("Ungültiger Name für eine Zutat.\n");
+            refresh();
             return false;
         }
         clear_input_buffer();
 
         new_recipe->ingredients[i].name = lowercase(duplicatestr(ingredient_name));
 
-        printf("Menge: ");
-        char ingredient_quantity[100];
-        if (scanf("%100[^\n]", ingredient_quantity) != 1) {
-            fprintf(stderr, "Ungültiger Menge an Zutaten.\n");
+        printw("Menge: ");
+        refresh();
+        char ingredient_quantity[101];
+        if (scanw("%100[^\n]", ingredient_quantity) != 1) {
+            clear();
+            printw("Ungültiger Menge an Zutaten.\n");
+            refresh();
             return false;
         }
         clear_input_buffer();
@@ -59,10 +72,13 @@ bool add(int *recipe_count, char *recipe_file) {
         new_recipe->ingredients[i].quantity = duplicatestr(ingredient_quantity);
     }
 
-    printf("Anleitung:\n");
-    char instructions[1000];
-    if (fgets(instructions, sizeof(instructions), stdin) == NULL) {
-        fprintf(stderr, "Ungültige Eingabe.\n");
+    printw("Anleitung:\n");
+    refresh();
+    char instructions[1001];
+    if (scanw("%1000[^\n]", instructions) != 1) {
+        clear();
+        printw("Ungültige Eingabe.\n");
+        refresh();
         return false;
     }
     instructions[strcspn(instructions, "\n")] = '\0'; // https://stackoverflow.com/a/28462221

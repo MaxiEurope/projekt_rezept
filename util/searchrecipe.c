@@ -4,6 +4,7 @@
 #include <string.h>
 #include "ext/cJSON.h"
 #include "recipe.h"
+#include <ncurses.h>
 
 /**
  * @brief Checks if a recipe has a specific ingredient
@@ -33,13 +34,9 @@ bool hasingredient(Recipe* recipe, char* ingredient) {
  * @param ingredient_count The number of ingredients
  */
 void searchrecipe(Recipe* recipes, int recipe_count, char** ingredients, int ingredient_count) {
-
-    // printf("recipe_count: %d\n", recipe_count);
-    // for (int i = 0; i < ingredient_count; i++) {
-    //     printf("ingredient: %s\n", ingredients[i]);
-    // }
-
-    printf("Suche nach Rezepten:\n");
+    clear();
+    printw("Suche nach Rezepten:\n");
+    refresh();
 
     int found = 0;
 
@@ -52,12 +49,14 @@ void searchrecipe(Recipe* recipes, int recipe_count, char** ingredients, int ing
             }
         }
         if (has_all) {
-            printf("> %s\n", recipes[i].name);
+            printw("> %s\n", recipes[i].name);
+            refresh();
             found = 1;
         }
     }
 
     if (!found) {
-        printf("Keine Rezepte gefunden\n");
+        printw("Keine Rezepte gefunden\n");
+        refresh();
     }
 }

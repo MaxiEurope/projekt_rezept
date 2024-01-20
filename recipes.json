@@ -72,26 +72,18 @@
 				"quantity":	"2"
 			}]
 	}, {
-		"name":	"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-		"instructions":	"dasdasdas",
+		"name":	"joghurt",
 		"ingredients":	[{
-				"name":	"a",
-				"quantity":	"2"
-			}]
-	}, {
-		"name":	"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-		"instructions":	"1",
-		"ingredients":	[{
-				"name":	"salz",
-				"quantity":	"2"
-			}]
-	}, {
-		"name":	"dasd said as",
-		"instructions":	"dasdas",
-		"ingredients":	[{
-				"name":	"a",
-				"quantity":	"b"
-			}]
+				"name":	"joghurt",
+				"quantity":	"100ml"
+			}, {
+				"name":	"apfel",
+				"quantity":	"1"
+			}, {
+				"name":	"banane",
+				"quantity":	"1"
+			}],
+		"instructions":	"dasdasdas"
 	}, {
 		"name":	"sa",
 		"instructions":	"dasd asdn asjdn as",

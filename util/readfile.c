@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ncurses.h>
 
 /**
  * @brief Reads a file and returns its content
@@ -10,7 +11,10 @@
 char* readfile(const char* filepath) {
     FILE* file = fopen(filepath, "r");
     if (file == NULL) {
-        fprintf(stderr, "Ein Fehler ist beim Lesen der Datei aufgetreten, die Datei scheint nicht zu existieren.\n");
+        clear();
+        printw("Ein Fehler ist beim Lesen der Datei aufgetreten, die Datei scheint nicht zu existieren.\n");
+        refresh();
+        napms(2000);
         exit(1);
         return NULL;
     }

@@ -4,6 +4,7 @@
 #include "ext/cJSON.h"
 #include "str/strfunctions.h"
 #include "recipe.h"
+#include <ncurses.h>
 
 /**
  * @brief Parses JSON and returns an array of recipes
@@ -15,7 +16,10 @@
 Recipe* parserecipe(const char* json_data, int recipe_count) {
     cJSON* json = cJSON_Parse(json_data);
     if (json == NULL) {
-        fprintf(stderr, "Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
+        clear();
+        printw("Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
+        refresh();
+        napms(2000);
         exit(1);
         return NULL;
     }
@@ -25,7 +29,9 @@ Recipe* parserecipe(const char* json_data, int recipe_count) {
     for (int i = 0; i < recipe_count; i++) {
         cJSON* recipe = cJSON_GetArrayItem(json, i);
         if (recipe == NULL || !cJSON_IsObject(recipe)) {
-            printf("Ein Fehler ist beim Laden von Rezept %d aufgetreten.\n", i + 1);
+            clear();
+            printw("Ein Fehler ist beim Laden von Rezept %d aufgetreten.\n", i + 1);
+            refresh();
             recipes[i].valid = 0;
             continue;
         }

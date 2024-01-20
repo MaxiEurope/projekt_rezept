@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <ncurses.h>
 
 #include "../util/ext/cJSON.h"
 #include "../util/str/strfunctions.h"
@@ -20,103 +21,128 @@ bool edit(int *recipe_count, char *recipe_file) {
 
     Recipe *recipes = parserecipe(json_data, *recipe_count);
 
-    printf("Welches Rezept möchtest du bearbeiten?\n");
+    printw("Welches Rezept möchtest du bearbeiten?\n");
 
     for (int i = 0; i < *recipe_count; i++) {
-        printf("[%d] %s\n", i + 1, recipes[i].name);
+        printw("[%d] %s\n", i + 1, recipes[i].name);
     }
-    printf("Auswahl: ");
+    printw("Auswahl: ");
+    refresh();
 
     int recipe_index;
-    if (scanf("%d", &recipe_index) != 1) {
-        fprintf(stderr, "Invalide Eingabe, die Nummer des Rezepts soll eine Zahl sein.\n");
+    if (scanw("%d", &recipe_index) != 1) {
+        printw("Invalide Eingabe, die Nummer des Rezepts soll eine Zahl sein.\n");
+        refresh();
         return false;
     }
     if (recipe_index < 1 || recipe_index > *recipe_count) {
-        fprintf(stderr, "Ungültige Eingabe.\n");
+        printw("Ungültige Eingabe.\n");
+        refresh();
         freerecipes(recipes, *recipe_count);
         free(json_data);
         return false;
     }
 
-    printf("Was möchtest du bearbeiten?\n");
-    printf("1. Name\n");
-    printf("2. Zutaten\n");
-    printf("3. Anleitung\n");
-    printf("Auswahl: ");
+    clear();
+    refresh();
 
-    int edit_choice;
-    char edit_term;
-    if (scanf("%1d%c", &edit_choice, &edit_term) != 2 || edit_term != '\n') {
-        fprintf(stderr, "Ungültige Eingabe. Bitte nur eine Zahl (1-3) eingeben.\n");
+    printw("Was möchtest du bearbeiten?\n");
+    printw("1. Name\n");
+    printw("2. Zutaten\n");
+    printw("3. Anleitung\n");
+    printw("Auswahl: ");
+    refresh();
+
+    int choice;
+    if (scanw("%1d%c", &choice) != 1) {
+        printw("Ungültige Eingabe. Bitte nur eine Zahl (1-3) eingeben.\n");
+        refresh();
         return false;
-    } else if (edit_choice < 1 || edit_choice > 3) {
-        fprintf(stderr, "Bitte nur eine Zahl zwischen 1 und 3 eingeben.\n");
+    } else if (choice < 1 || choice > 3) {
+        printw("Bitte nur eine Zahl zwischen 1 und 3 eingeben.\n");
+        refresh();
         return false;
     }
 
-    switch (edit_choice) {
+    clear();
+    refresh();
+
+    switch (choice) {
         case 1: {
-            printf("Neuer Name: ");
+            printw("Neuer Name: ");
+            refresh();
             char name[101];
-            if (scanf("%100[^\n]", name) != 1) {
-                fprintf(stderr, "Ungültiger Rezept Name.\n");
+            if (scanw("%100[^\n]", name) != 1) {
+                clear();
+                printw("Ungültiger Rezept Name.\n");
+                refresh();
                 return false;
             }
-            clear_input_buffer();
 
             recipes[recipe_index - 1].name = duplicatestr(name);
             break;
         }
         case 2: {
-            printf("Neue Anzahl an Zutaten: ");
+            printw("Neue Anzahl an Zutaten: ");
+            refresh();
             int ingredient_count;
-            if (scanf("%d", &ingredient_count) != 1) {
-                fprintf(stderr, "Invalide Eingabe, die Anzahl der Zutaten soll eine Zahl sein.\n");
+            if (scanw("%d", &ingredient_count) != 1) {
+                clear();
+                printw("Invalide Eingabe, die Anzahl der Zutaten soll eine Zahl sein.\n");
+                refresh();
                 return false;
             }
-            clear_input_buffer();
 
             recipes[recipe_index - 1].ingredient_count = ingredient_count;
 
             recipes[recipe_index - 1].ingredients = (Ingredient *)malloc(ingredient_count * sizeof(Ingredient));
             for (int i = 0; i < ingredient_count; i++) {
-                printf("Zutat %d:\n", i + 1);
-                printf("Name: ");
+                printw("Zutat %d:\n", i + 1);
+                refresh();
+                printw("Name: ");
+                refresh();
                 char ingredient_name[101];
-                if (scanf("%100[^\n]", ingredient_name) != 1) {
-                    fprintf(stderr, "Ungültiger Name für eine Zutat.\n");
+                if (scanw("%100[^\n]", ingredient_name) != 1) {
+                    clear();
+                    printw("Ungültiger Name für eine Zutat.\n");
+                    refresh();
                     return false;
                 }
-                clear_input_buffer();
 
                 recipes[recipe_index - 1].ingredients[i].name = lowercase(duplicatestr(ingredient_name));
 
-                printf("Menge: ");
-                char ingredient_quantity[100];
-                if (scanf("%100[^\n]", ingredient_quantity) != 1) {
-                    fprintf(stderr, "Ungültiger Menge an Zutaten.\n");
+                printw("Menge: ");
+                refresh();
+                char ingredient_quantity[101];
+                if (scanw("%100[^\n]", ingredient_quantity) != 1) {
+                    clear();
+                    printw("Ungültiger Menge an Zutaten.\n");
+                    refresh();
                     return false;
                 }
-                clear_input_buffer();
 
                 recipes[recipe_index - 1].ingredients[i].quantity = duplicatestr(ingredient_quantity);
             }
             break;
         }
         case 3: {
-            printf("Neue Anleitung:\n");
-            char instructions[1000];
-            if (fgets(instructions, sizeof(instructions), stdin) == NULL) {
-                fprintf(stderr, "Ungültige Eingabe.\n");
+            printw("Neue Anleitung:");
+            refresh();
+            char instructions[1001];
+            if (scanw("%1000[^\n]", instructions) != 1) {
+                clear();
+                printw("Ungültige Eingabe.\n");
+                refresh();
                 return false;
             }
-            instructions[strcspn(instructions, "\n")] = '\0'; // https://stackoverflow.com/a/28462221
+
             recipes[recipe_index - 1].instructions = duplicatestr(instructions);
             break;
         }
         default: {
-            fprintf(stderr, "Ungültige Eingabe.\n");
+            clear();
+            printw("Ungültige Eingabe.\n");
+            refresh();
             freerecipes(recipes, *recipe_count);
             free(json_data);
             return false;
@@ -125,7 +151,9 @@ bool edit(int *recipe_count, char *recipe_file) {
 
     cJSON *json_recipes = cJSON_Parse(json_data);
     if (json_recipes == NULL) {
-        fprintf(stderr, "Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
+        clear();
+        printw("Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
+        refresh();
         freerecipes(recipes, *recipe_count);
         free(json_data);
         return false;
@@ -133,7 +161,9 @@ bool edit(int *recipe_count, char *recipe_file) {
 
     cJSON *json_recipe = cJSON_GetArrayItem(json_recipes, recipe_index - 1);
     if (json_recipe == NULL || !cJSON_IsObject(json_recipe)) {
-        fprintf(stderr, "Ein Fehler ist beim Laden von Rezept %d aufgetreten.\n", recipe_index);
+        clear();
+        printw("Ein Fehler ist beim Laden von Rezept %d aufgetreten.\n", recipe_index);
+        refresh();
         freerecipes(recipes, *recipe_count);
         free(json_data);
         return false;
@@ -144,7 +174,9 @@ bool edit(int *recipe_count, char *recipe_file) {
     cJSON *json_instructions = cJSON_GetObjectItem(json_recipe, "instructions");
 
     if (json_name == NULL || !cJSON_IsString(json_name) || json_ingredients == NULL || !cJSON_IsArray(json_ingredients) || json_instructions == NULL || !cJSON_IsString(json_instructions)) {
-        fprintf(stderr, "Invalider JSON.\n");
+        clear();
+        printw("Invalider JSON.\n");
+        refresh();
         freerecipes(recipes, *recipe_count);
         free(json_data);
         return false;
@@ -169,7 +201,9 @@ bool edit(int *recipe_count, char *recipe_file) {
 
     char *updated_json_data = cJSON_Print(json_recipes);
     if (updated_json_data == NULL) {
-        fprintf(stderr, "Ein Fehler ist beim Speichern aufgetreten.\n");
+        clear();
+        printw("Ein Fehler ist beim Speichern aufgetreten.\n");
+        refresh();
         cJSON_Delete(json_recipes);
         freerecipes(recipes, *recipe_count);
         free(json_data);
@@ -177,7 +211,9 @@ bool edit(int *recipe_count, char *recipe_file) {
     }
     FILE *file = fopen(recipe_file, "w");
     if (file == NULL) {
-        fprintf(stderr, "Konnte Datei nicht öffnen.\n");
+        clear();
+        printw("Konnte Datei nicht öffnen.\n");
+        refresh();
         free(updated_json_data);
         cJSON_Delete(json_recipes);
         freerecipes(recipes, *recipe_count);
@@ -185,7 +221,8 @@ bool edit(int *recipe_count, char *recipe_file) {
         return false;
     }
 
-    printf("Rezept mit der Nummer %d erfolgreich bearbeitet.\n", recipe_index);
+    printw("Rezept mit der Nummer %d erfolgreich bearbeitet.\n", recipe_index);
+    refresh();
 
     fprintf(file, "%s\n", updated_json_data);
     fclose(file);
