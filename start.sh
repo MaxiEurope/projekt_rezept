@@ -1,0 +1,1 @@
+gcc -std=c99 -Wall -Wextra -pedantic -Wno-unused-parameter main.c -lncurses actions/add.c actions/del.c actions/edit.c actions/list.c actions/search.c util/ext/cJSON.c util/str/strfunctions.c util/str/getargs.c util/addrecipe.c util/freerecipes.c util/getrecipecount.c util/parserecipe.c util/printrecipe.c util/readfile.c util/searchrecipe.c -o recipe ; ./recipe -f a.json

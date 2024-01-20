@@ -27,9 +27,9 @@ bool add(int *recipe_count, char *recipe_file) {
         refresh();
         return false;
     }
-    clear_input_buffer();
     new_recipe->name = duplicatestr(name);
 
+    clear();
     printw("Anzahl Zutaten: ");
     refresh();
     int ingredient_count;
@@ -39,11 +39,11 @@ bool add(int *recipe_count, char *recipe_file) {
         refresh();
         return false;
     }
-    clear_input_buffer();
     new_recipe->ingredient_count = ingredient_count;
 
     new_recipe->ingredients = (Ingredient*)malloc(ingredient_count * sizeof(Ingredient));
     for (int i = 0; i < ingredient_count; i++) {
+        clear();
         printw("Zutat %d:\n", i + 1);
         printw("Name: ");
         refresh();
@@ -54,7 +54,6 @@ bool add(int *recipe_count, char *recipe_file) {
             refresh();
             return false;
         }
-        clear_input_buffer();
 
         new_recipe->ingredients[i].name = lowercase(duplicatestr(ingredient_name));
 
@@ -67,12 +66,12 @@ bool add(int *recipe_count, char *recipe_file) {
             refresh();
             return false;
         }
-        clear_input_buffer();
 
         new_recipe->ingredients[i].quantity = duplicatestr(ingredient_quantity);
     }
 
-    printw("Anleitung:\n");
+    clear();
+    printw("Anleitung: ");
     refresh();
     char instructions[1001];
     if (scanw("%1000[^\n]", instructions) != 1) {
@@ -81,7 +80,6 @@ bool add(int *recipe_count, char *recipe_file) {
         refresh();
         return false;
     }
-    instructions[strcspn(instructions, "\n")] = '\0'; // https://stackoverflow.com/a/28462221
     new_recipe->instructions = duplicatestr(instructions);
 
     addrecipe(new_recipe, recipe_count, recipe_file);

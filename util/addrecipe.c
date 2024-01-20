@@ -63,6 +63,8 @@ void addrecipe(Recipe *new_recipe, int *recipe_count, char *recipe_file) {
     }
 
     (*recipe_count)++;
+
+    clear();
     printw("Rezept hinzugefügt.\n");
     printw("Rezeptanzahl: %d\n", *recipe_count);
     refresh();

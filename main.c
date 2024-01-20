@@ -126,7 +126,9 @@ int main(int argc, char *argv[]) {
                 break;
             }
             case 6: {
-                printw("Programm wird beendet.\n");
+                printw("Programm wird beendet, bye.\n");
+                refresh();
+                napms(1000);
                 refresh();
                 endwin();
                 return 0;

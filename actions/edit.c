@@ -31,11 +31,13 @@ bool edit(int *recipe_count, char *recipe_file) {
 
     int recipe_index;
     if (scanw("%d", &recipe_index) != 1) {
+        clear();
         printw("Invalide Eingabe, die Nummer des Rezepts soll eine Zahl sein.\n");
         refresh();
         return false;
     }
     if (recipe_index < 1 || recipe_index > *recipe_count) {
+        clear();
         printw("Ungültige Eingabe.\n");
         refresh();
         freerecipes(recipes, *recipe_count);
@@ -55,10 +57,12 @@ bool edit(int *recipe_count, char *recipe_file) {
 
     int choice;
     if (scanw("%1d%c", &choice) != 1) {
+        clear();
         printw("Ungültige Eingabe. Bitte nur eine Zahl (1-3) eingeben.\n");
         refresh();
         return false;
     } else if (choice < 1 || choice > 3) {
+        clear();
         printw("Bitte nur eine Zahl zwischen 1 und 3 eingeben.\n");
         refresh();
         return false;
@@ -126,7 +130,7 @@ bool edit(int *recipe_count, char *recipe_file) {
             break;
         }
         case 3: {
-            printw("Neue Anleitung:");
+            printw("Neue Anleitung: ");
             refresh();
             char instructions[1001];
             if (scanw("%1000[^\n]", instructions) != 1) {
@@ -221,6 +225,7 @@ bool edit(int *recipe_count, char *recipe_file) {
         return false;
     }
 
+    clear();
     printw("Rezept mit der Nummer %d erfolgreich bearbeitet.\n", recipe_index);
     refresh();
 

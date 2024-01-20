@@ -20,6 +20,7 @@ Recipe* parserecipe(const char* json_data, int recipe_count) {
         printw("Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
         refresh();
         napms(2000);
+        refresh();
         exit(1);
         return NULL;
     }

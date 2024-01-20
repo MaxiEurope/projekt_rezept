@@ -53,6 +53,7 @@ bool del(int *recipe_count, char *recipe_file) {
         freerecipes(recipes, *recipe_count);
         free(json_data);
         napms(2000);
+        refresh();
         exit(1);
         return false;
     }
@@ -68,6 +69,7 @@ bool del(int *recipe_count, char *recipe_file) {
         freerecipes(recipes, *recipe_count);
         free(json_data);
         napms(2000);
+        refresh();
         exit(1);
         return false;
     }
@@ -82,6 +84,7 @@ bool del(int *recipe_count, char *recipe_file) {
         freerecipes(recipes, *recipe_count);
         free(json_data);
         napms(2000);
+        refresh();
         exit(1);
         return false;
     }

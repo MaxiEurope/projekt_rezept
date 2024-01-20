@@ -15,6 +15,7 @@ char* readfile(const char* filepath) {
         printw("Ein Fehler ist beim Lesen der Datei aufgetreten, die Datei scheint nicht zu existieren.\n");
         refresh();
         napms(2000);
+        refresh();
         exit(1);
         return NULL;
     }

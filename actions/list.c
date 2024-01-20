@@ -46,5 +46,9 @@ bool list(int *recipe_count, char *recipe_file) {
 
     free(json_data);
 
+    printw("Drücke eine beliebige Taste um fortzufahren.\n");
+    getch();
+    clear();
+
     return true;
 }

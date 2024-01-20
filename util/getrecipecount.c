@@ -20,6 +20,7 @@ void getrecipecount(int *recipe_count, char *recipe_file) {
         printw("Ein Fehler ist beim Laden von der JSON Rezept Datei aufgetreten.\n");
         refresh();
         napms(2000);
+        refresh();
         exit(1);
         return;
     }
