@@ -64,3 +64,14 @@ void print_units() {
     printw("5. Teelöffel\n");
     printw("6. Tasse\n");
 }
+
+Unit string_to_unit(const char* str) {
+    if (strcmp(str, "gram") == 0) return GRAM;
+    else if (strcmp(str, "milliliter") == 0) return MILLILITER;
+    else if (strcmp(str, "piece") == 0) return PIECE;
+    else if (strcmp(str, "tablespoon") == 0) return TABLESPOON;
+    else if (strcmp(str, "teaspoon") == 0) return TEASPOON;
+    else if (strcmp(str, "cup") == 0) return CUP;
+    else return NULL;
+}
+

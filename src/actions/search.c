@@ -9,6 +9,37 @@
 #include "../util/recipeutil.h"
 
 /**
+ * @brief Parses a string of ingredients separated by commas and saves them in an array
+ *
+ * @param str The string of ingredients
+ * @param array A pointer to an array
+ * @return The number of ingredients parsed, -1 if an error occurred
+ */
+int parseingredients(char *str, char ***array) {
+    int count = 0;
+    char *token;
+    char *rest = str;
+
+    while ((token = strtok_r(rest, ",", &rest))) {
+        count++;
+    }
+
+    *array = (char **)malloc(count * sizeof(char *));
+    if (!*array) {
+        return -1;
+    }
+
+    rest = str;
+    int i = 0;
+    while ((token = strtok_r(rest, ",", &rest))) {
+        (*array)[i] = strdup(token);
+        i++;
+    }
+
+    return count;
+}
+
+/**
  * @brief Searches for recipes with specific ingredients
  *
  * @param recipe_count The number of recipes
@@ -19,6 +50,25 @@ bool search(int *recipe_count, char *recipe_file) {
     char *json_data = readfile(recipe_file);
 
     Recipe *recipes = parserecipe(json_data, *recipe_count);
+
+    // char ingredients_str[256];  // Assuming the entire line will be less than 256 characters
+    // printw("Geben Sie die Zutaten ein (durch Kommas getrennt): ");
+    // refresh();
+
+    // if (scanw("%255[^\n]", ingredients_str) != 1) {
+    //     printw("Ungültige Eingabe.\n");
+    //     refresh();
+    //     // Handle error
+    // }
+
+    // char **ingredients;
+    // int ingredient_count = splitIngredients(ingredients_str, &ingredients);
+
+    // if (ingredient_count < 0) {
+    //     printw("Ein Fehler ist beim Zuweisen von Speicher aufgetreten.\n");
+    //     refresh();
+    //     // Handle error
+    // }
 
     printw("Wie viele Zutaten möchtest du eingeben? ");
     refresh();

@@ -59,20 +59,28 @@ Recipe* parserecipe(const char* json_data, int recipe_count) {
                 continue;
             }
 
-            cJSON* ingredient_name = cJSON_GetObjectItem(ingredient, "name");
-            cJSON* ingredient_quantity = cJSON_GetObjectItem(ingredient, "quantity");
+            cJSON *ingredient_name = cJSON_GetObjectItem(ingredient, "name");
+            cJSON *ingredient_quantity = cJSON_GetObjectItem(ingredient, "quantity");
+            cJSON *ingredient_unit = cJSON_GetObjectItem(ingredient, "unit");
 
             if (ingredient_name != NULL && cJSON_IsString(ingredient_name)) {
                 recipes[i].ingredients[j].name = lowercase(duplicatestr(ingredient_name->valuestring));
             } else {
-                recipes[i].ingredients[j].name = NULL;
+                recipes[i].ingredients[j].name = "Unknown Ingredient";
             }
 
-            if (ingredient_quantity != NULL && cJSON_IsString(ingredient_quantity)) {
-                recipes[i].ingredients[j].quantity = duplicatestr(ingredient_quantity->valuestring);
+            if (ingredient_quantity != NULL && cJSON_IsNumber(ingredient_quantity)) {
+                recipes[i].ingredients[j].quantity = (unsigned int)cJSON_GetNumberValue(ingredient_quantity);
             } else {
-                recipes[i].ingredients[j].quantity = NULL;
+                recipes[i].ingredients[j].quantity = 0;
             }
+
+            if (ingredient_unit != NULL && cJSON_IsString(ingredient_unit)) {
+                recipes[i].ingredients[j].unit = string_to_unit(ingredient_unit->valuestring);
+            } else {
+                recipes[i].ingredients[j].unit = NULL;
+            }
+
         }
         recipes[i].valid = 1;
     }

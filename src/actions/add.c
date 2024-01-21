@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <errno.h>
+#include <limits.h>
 #include <ncurses.h>
 
 #include "../util/str/strfunctions.h"
@@ -59,15 +61,44 @@ bool add(int *recipe_count, char *recipe_file) {
 
         printw("Menge: ");
         refresh();
-        char ingredient_quantity[101];
-        if (scanw("%100[^\n]", ingredient_quantity) != 1) {
+        char raw_quantity[101];
+        if (scanw("%100s", raw_quantity) != 1) {
             clear();
-            printw("Ungültiger Menge an Zutaten.\n");
+            printw("Ungültige Menge für diese Zutat.\n");
             refresh();
             return false;
         }
 
-        new_recipe->ingredients[i].quantity = duplicatestr(ingredient_quantity);
+        char *endptr;
+        errno = 0;
+        unsigned long ingredient_quantity = strtoul(raw_quantity, &endptr, 10);
+
+        if (endptr == raw_quantity) {
+            clear();
+            printw("Keine Zahlen gefunden, die Menge soll nur eine Zahl beinhalten.\n");
+            refresh();
+            return false;
+        }
+
+        if ((*endptr != '\0') || (errno == ERANGE)) {
+            clear();
+            printw("Ungültige Zahl/Menge für diese Zutat.\n");
+            refresh();
+            return false;
+        }
+
+        if (ingredient_quantity > UINT_MAX) {
+            clear();
+            printw("Die Zahl/Menge ist zu groß für diese Zutat.\n");
+            refresh();
+            return false;
+        }
+
+        new_recipe->ingredients[i].quantity = (unsigned int)ingredient_quantity;
+
+        int unit_choice = get_unit();
+
+        new_recipe->ingredients[i].unit = unit_choice;
     }
 
     clear();
@@ -86,4 +117,23 @@ bool add(int *recipe_count, char *recipe_file) {
     free(new_recipe);
 
     return true;
+}
+
+Unit get_unit() {
+    int choice;
+    print_units();
+    scanw("%d", &choice);
+
+    switch (choice) {
+        case 1: return GRAM;
+        case 2: return MILLILITER;
+        case 3: return PIECE;
+        case 4: return TABLESPOON;
+        case 5: return TEASPOON;
+        case 6: return CUP;
+        default:
+            printw("Ungültige Auswahl/Einheit für diese Zutat.\n");
+            refresh();
+            return get_unit();
+    }
 }
