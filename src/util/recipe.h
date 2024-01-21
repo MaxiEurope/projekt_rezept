@@ -1,9 +1,19 @@
 #ifndef RECIPE_H
 #define RECIPE_H
 
+typedef enum {
+    GRAM,
+    MILLILITER,
+    PIECE,
+    TABLESPOON,
+    TEASPOON,
+    CUP
+} Unit;
+
 typedef struct {
     char* name;
-    char* quantity;
+    unsigned int quantity;
+    Unit unit;
 } Ingredient;
 
 typedef struct {
