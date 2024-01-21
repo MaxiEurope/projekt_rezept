@@ -22,6 +22,7 @@ int main(int argc, char *argv[]) {
     refresh();
 
     if (!getargs(argc, argv, &recipe_file)) {
+        endwin();
         return 1;
     }
 
