@@ -25,7 +25,7 @@ void printrecipes(Recipe* recipes, int count, int recipe_index) {
             } else {
                 quantity = recipes[i].ingredients[j].quantity;
             }
-            char *unit = printunit(recipes[i].ingredients[j].unit);
+            char *unit = print_unit(recipes[i].ingredients[j].unit);
 
             printw("> - %s: %d%s\n", uppercasefirst(recipes[i].ingredients[j].name), quantity, unit);
         }
@@ -40,7 +40,7 @@ void printrecipes(Recipe* recipes, int count, int recipe_index) {
  * @param unit The unit to be converted to a string.
  * @return A string representation of the unit.
  */
-const char* printunit(Unit unit) {
+const char* print_unit(Unit unit) {
     switch (unit) {
         case GRAM:       return "gram";
         case MILLILITER: return "milliliter";
@@ -72,6 +72,6 @@ Unit string_to_unit(const char* str) {
     else if (strcmp(str, "tablespoon") == 0) return TABLESPOON;
     else if (strcmp(str, "teaspoon") == 0) return TEASPOON;
     else if (strcmp(str, "cup") == 0) return CUP;
-    else return NULL;
+    else return GRAM; // assume gram as default
 }
 

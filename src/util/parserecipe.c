@@ -78,7 +78,7 @@ Recipe* parserecipe(const char* json_data, int recipe_count) {
             if (ingredient_unit != NULL && cJSON_IsString(ingredient_unit)) {
                 recipes[i].ingredients[j].unit = string_to_unit(ingredient_unit->valuestring);
             } else {
-                recipes[i].ingredients[j].unit = NULL;
+                recipes[i].ingredients[j].unit = GRAM; // assume people use this unit by default
             }
 
         }

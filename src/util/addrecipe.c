@@ -35,7 +35,7 @@ void addrecipe(Recipe *new_recipe, int *recipe_count, char *recipe_file) {
         cJSON *json_ingredient = cJSON_CreateObject();
         cJSON_AddStringToObject(json_ingredient, "name", new_recipe->ingredients[i].name);
         cJSON_AddNumberToObject(json_ingredient, "quantity", new_recipe->ingredients[i].quantity);
-        cJSON_AddStringToObject(json_ingredient, "unit", printunit(new_recipe->ingredients[i].unit));
+        cJSON_AddStringToObject(json_ingredient, "unit", print_unit(new_recipe->ingredients[i].unit));
         cJSON_AddItemToArray(json_ingredients, json_ingredient);
     }
     cJSON_AddItemToObject(json_new_recipe, "ingredients", json_ingredients);
