@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <errno.h>
+#include <limits.h>
 #include <ncurses.h>
 
 #include "../util/ext/cJSON.h"
@@ -117,15 +119,80 @@ bool edit(int *recipe_count, char *recipe_file) {
 
                 printw("Menge: ");
                 refresh();
-                char ingredient_quantity[101];
-                if (scanw("%100[^\n]", ingredient_quantity) != 1) {
+                char raw_quantity[101];
+                if (scanw("%100s", raw_quantity) != 1) {
                     clear();
-                    printw("Ungültiger Menge an Zutaten.\n");
+                    printw("Ungültige Menge für diese Zutat.\n");
                     refresh();
                     return false;
                 }
 
-                recipes[recipe_index - 1].ingredients[i].quantity = duplicatestr(ingredient_quantity);
+                char *endptr;
+                errno = 0;
+                unsigned long ingredient_quantity = strtoul(raw_quantity, &endptr, 10);
+
+                if (endptr == raw_quantity) {
+                    clear();
+                    printw("Keine Zahlen gefunden, die Menge soll nur eine Zahl beinhalten.\n");
+                    refresh();
+                    return false;
+                }
+
+                if ((*endptr != '\0') || (errno == ERANGE)) {
+                    clear();
+                    printw("Ungültige Zahl/Menge für diese Zutat.\n");
+                    refresh();
+                    return false;
+                }
+
+                if (ingredient_quantity > UINT_MAX) {
+                    clear();
+                    printw("Die Zahl/Menge ist zu groß für diese Zutat.\n");
+                    refresh();
+                    return false;
+                }
+
+                recipes[recipe_index - 1].ingredients[i].quantity = (unsigned int)ingredient_quantity;
+
+                Unit unit_choice;
+                int choice;
+                print_units();
+                scanw("%d", &choice);
+
+                switch (choice) {
+                    case 1: {
+                        unit_choice = GRAM;
+                        break;
+                    }
+                    case 2: {
+                        unit_choice = MILLILITER;
+                        break;
+                    }
+                    case 3: {
+                        unit_choice = PIECE;
+                        break;
+                    }
+                    case 4: {
+                        unit_choice = TABLESPOON;
+                        break;
+                    }
+                    case 5: {
+                        unit_choice = TEASPOON;
+                        break;
+                    }
+                    case 6: {
+                        unit_choice = CUP;
+                        break;
+                    }
+                    default: {
+                        clear();
+                        printw("Ungültige Auswahl/Einheit für diese Zutat.\n");
+                        refresh();
+                        return false;
+                    }
+                }
+
+                recipes[recipe_index - 1].ingredients[i].unit = unit_choice;
             }
             break;
         }
