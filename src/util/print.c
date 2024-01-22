@@ -1,7 +1,10 @@
 #include <stdio.h>
+#include <string.h>
 #include "recipe.h"
 #include "str/strfunctions.h"
 #include <ncurses.h>
+
+#include "recipeutil.h"
 
 /**
  * @brief Prints all recipes
@@ -19,12 +22,7 @@ void printrecipes(Recipe* recipes, int count, int recipe_index) {
         printw("> Anleitung: %s\n", recipes[i].instructions);
         printw("> Zutaten:\n");
         for (int j = 0; j < recipes[i].ingredient_count; j++) {
-            int quantity;
-            if (recipes[i].ingredients[j].quantity == NULL) {
-                quantity = 0;
-            } else {
-                quantity = recipes[i].ingredients[j].quantity;
-            }
+            int quantity = recipes[i].ingredients[j].quantity;
             char *unit = print_unit(recipes[i].ingredients[j].unit);
 
             printw("> - %s: %d%s\n", uppercasefirst(recipes[i].ingredients[j].name), quantity, unit);
