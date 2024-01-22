@@ -15,29 +15,29 @@
  * @param array A pointer to an array
  * @return The number of ingredients parsed, -1 if an error occurred
  */
-int parseingredients(char *str, char ***array) {
-    int count = 0;
-    char *token;
-    char *rest = str;
+// int parseingredients(char *str, char ***array) {
+//     int count = 0;
+//     char *token;
+//     char *rest = str;
 
-    while ((token = strtok_r(rest, ",", &rest))) {
-        count++;
-    }
+//     while ((token = strtok_r(rest, ",", &rest))) {
+//         count++;
+//     }
 
-    *array = (char **)malloc(count * sizeof(char *));
-    if (!*array) {
-        return -1;
-    }
+//     *array = (char **)malloc(count * sizeof(char *));
+//     if (!*array) {
+//         return -1;
+//     }
 
-    rest = str;
-    int i = 0;
-    while ((token = strtok_r(rest, ",", &rest))) {
-        (*array)[i] = strdup(token);
-        i++;
-    }
+//     rest = str;
+//     int i = 0;
+//     while ((token = strtok_r(rest, ",", &rest))) {
+//         (*array)[i] = strdup(token);
+//         i++;
+//     }
 
-    return count;
-}
+//     return count;
+// }
 
 /**
  * @brief Searches for recipes with specific ingredients
@@ -51,6 +51,8 @@ bool search(int *recipe_count, char *recipe_file) {
 
     Recipe *recipes = parserecipe(json_data, *recipe_count);
 
+    // TODO: sort by ingredient quantity
+ 
     // char ingredients_str[256];  // Assuming the entire line will be less than 256 characters
     // printw("Geben Sie die Zutaten ein (durch Kommas getrennt): ");
     // refresh();

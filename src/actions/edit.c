@@ -263,7 +263,8 @@ bool edit(int *recipe_count, char *recipe_file) {
     for (int i = 0; i < recipes[recipe_index - 1].ingredient_count; i++) {
         cJSON *json_ingredient = cJSON_CreateObject();
         cJSON_AddStringToObject(json_ingredient, "name", recipes[recipe_index - 1].ingredients[i].name);
-        cJSON_AddStringToObject(json_ingredient, "quantity", recipes[recipe_index - 1].ingredients[i].quantity);
+        cJSON_AddNumberToObject(json_ingredient, "quantity", recipes[recipe_index - 1].ingredients[i].quantity);
+        cJSON_AddStringToObject(json_ingredient, "unit", printunit(recipes[recipe_index - 1].ingredients[i].unit));
         cJSON_AddItemToArray(json_new_ingredients, json_ingredient);
     }
     cJSON_AddItemToObject(json_recipe, "ingredients", json_new_ingredients);

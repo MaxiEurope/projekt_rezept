@@ -18,7 +18,6 @@ void freerecipes(Recipe* recipes, int count) {
 
         for (int j = 0; j < recipes[i].ingredient_count; j++) {
             free(recipes[i].ingredients[j].name);
-            free(recipes[i].ingredients[j].quantity);
         }
         free(recipes[i].ingredients);
     }
