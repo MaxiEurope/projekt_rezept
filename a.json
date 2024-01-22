@@ -1,26 +1,33 @@
 [{
 		"name":	"Spaghetti Carbonara",
-		"instructions":	"Bring a large pot of salted water to a boil. Add the spaghetti and cook according to package instructions until al dente.",
 		"ingredients":	[{
 				"name":	"spaghetti",
-				"quantity":	"400g"
+				"quantity":	400,
+				"unit":	"gram"
 			}, {
 				"name":	"pancetta",
-				"quantity":	"150g"
+				"quantity":	150,
+				"unit":	"gram"
 			}, {
 				"name":	"eggs",
-				"quantity":	"2"
+				"quantity":	2,
+				"unit":	"piece"
 			}, {
-				"name":	"parmesan cheese",
-				"quantity":	"1cup"
+				"name":	"cheese",
+				"quantity":	1,
+				"unit":	"cup"
 			}, {
 				"name":	"garlic",
-				"quantity":	"2"
+				"quantity":	2,
+				"unit":	"piece"
 			}, {
 				"name":	"salt",
-				"quantity":	"1"
+				"quantity":	3,
+				"unit":	"gram"
 			}, {
 				"name":	"oil",
-				"quantity":	"10ml"
-			}]
+				"quantity":	10,
+				"unit":	"milliliter"
+			}],
+		"instructions":	"Bring a large pot of salted water to a boil. Add the spaghetti and cook according to package instructions until al dente."
 	}]
