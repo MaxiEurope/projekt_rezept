@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "ext/cJSON.h"
-#include "str/strfunctions.h"
 #include "recipe.h"
 #include <ncurses.h>
+
+#include "ext/cJSON.h"
+#include "str/strfunctions.h"
+#include "recipeutil.h"
 
 /**
  * @brief Parses JSON and returns an array of recipes
