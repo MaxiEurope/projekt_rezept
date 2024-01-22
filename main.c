@@ -22,11 +22,14 @@ int main(int argc, char *argv[]) {
     refresh();
 
     if (!getargs(argc, argv, &recipe_file)) {
+        napms(1000);
+        refresh();
         endwin();
         return 1;
     }
 
     getrecipecount(&recipe_count, recipe_file);
+    printw("Willkommen beim Rezeptbuch!\n");
     printw("Es wurden %d Rezepte geladen.\n", recipe_count);
     refresh();
 

@@ -49,7 +49,7 @@ void searchrecipe(Recipe* recipes, int recipe_count, char** ingredients, int ing
             }
         }
         if (has_all) {
-            printw("> %s\n", recipes[i].name);
+            printw("> [%d] %s\n", i + 1, recipes[i].name);
             refresh();
             found = 1;
         }

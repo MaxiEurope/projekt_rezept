@@ -25,7 +25,7 @@ void printrecipes(Recipe* recipes, int count, int recipe_index) {
             int quantity = recipes[i].ingredients[j].quantity;
             char *unit = print_unit(recipes[i].ingredients[j].unit);
 
-            printw("> - %s: %d%s\n", uppercasefirst(recipes[i].ingredients[j].name), quantity, unit);
+            printw("> - %s: %d %s\n", uppercasefirst(recipes[i].ingredients[j].name), quantity, unit);
         }
         printw("\n");
         refresh();
