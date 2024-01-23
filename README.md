@@ -29,7 +29,7 @@ gcc -std=c99 -Wall -Wextra -pedantic -Wno-unused-parameter main.c -lncurses src/
   * Let the user edit existing recipes within the program.
 
 ### &#9744; Task 6 (30 points)
-  * Implement a nice user interface using the `ncurses` library.
+  * &#9745; Implement a nice user interface using the `ncurses` library.
   * Let the user scroll a list of all recipes to select any of them.
   * Allow the user then to take an action on the respective recipe (e.g., edit it).
 
