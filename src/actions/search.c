@@ -112,7 +112,6 @@ bool search(int *recipe_count, char *recipe_file) {
 
     free(ingredients);
     freerecipes(recipes, *recipe_count);
-
     free(json_data);
 
     printw("\nDrücke eine beliebige Taste um fortzufahren.\n");

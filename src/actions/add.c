@@ -137,5 +137,9 @@ bool add(int *recipe_count, char *recipe_file) {
 
     freerecipes(new_recipe, 1);
 
+    printw("\nDrücke eine beliebige Taste um fortzufahren.\n");
+    getch();
+    clear();
+
     return true;
 }

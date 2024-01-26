@@ -102,5 +102,9 @@ bool del(int *recipe_count, char *recipe_file) {
     freerecipes(recipes, *recipe_count);
     free(json_data);
 
+    printw("\nDrücke eine beliebige Taste um fortzufahren.\n");
+    getch();
+    clear();
+
     return true;
 }

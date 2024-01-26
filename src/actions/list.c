@@ -43,7 +43,6 @@ bool list(int *recipe_count, char *recipe_file) {
 
     printrecipes(recipes, *recipe_count, recipe_index - 1);
     freerecipes(recipes, *recipe_count);
-
     free(json_data);
 
     printw("\nDrücke eine beliebige Taste um fortzufahren.\n");
