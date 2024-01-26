@@ -15,7 +15,7 @@
  * @param recipe_count The number of recipes, set to 0 at first
  * @return Pointer to the array of recipes
  */
-Recipe* parserecipe(const char* json_data, int recipe_count) {
+Recipe *parserecipe(const char* json_data, int recipe_count) {
     cJSON* json = cJSON_Parse(json_data);
     if (json == NULL) {
         clear();
@@ -30,7 +30,7 @@ Recipe* parserecipe(const char* json_data, int recipe_count) {
     Recipe* recipes = (Recipe*)malloc(recipe_count * sizeof(Recipe));
 
     for (int i = 0; i < recipe_count; i++) {
-        cJSON* recipe = cJSON_GetArrayItem(json, i);
+        cJSON *recipe = cJSON_GetArrayItem(json, i);
         if (recipe == NULL || !cJSON_IsObject(recipe)) {
             clear();
             printw("Ein Fehler ist beim Laden von Rezept %d aufgetreten.\n", i + 1);
@@ -39,9 +39,10 @@ Recipe* parserecipe(const char* json_data, int recipe_count) {
             continue;
         }
 
-        cJSON* name = cJSON_GetObjectItem(recipe, "name");
-        cJSON* ingredients = cJSON_GetObjectItem(recipe, "ingredients");
-        cJSON* instructions = cJSON_GetObjectItem(recipe, "instructions");
+        cJSON *name = cJSON_GetObjectItem(recipe, "name");
+        cJSON *category = cJSON_GetObjectItem(recipe, "category");
+        cJSON *ingredients = cJSON_GetObjectItem(recipe, "ingredients");
+        cJSON *instructions = cJSON_GetObjectItem(recipe, "instructions");
 
         if (name == NULL || !cJSON_IsString(name) || ingredients == NULL || !cJSON_IsArray(ingredients) || instructions == NULL || !cJSON_IsString(instructions)) {
             recipes[i].valid = 0;
@@ -49,6 +50,7 @@ Recipe* parserecipe(const char* json_data, int recipe_count) {
         }
 
         recipes[i].name = duplicatestr(name->valuestring);
+        recipes[i].category = duplicatestr(category->valuestring);
         recipes[i].instructions = duplicatestr(instructions->valuestring);
 
         int ingredient_count = cJSON_GetArraySize(ingredients);
@@ -56,7 +58,7 @@ Recipe* parserecipe(const char* json_data, int recipe_count) {
         recipes[i].ingredients = (Ingredient*)malloc(ingredient_count * sizeof(Ingredient));
 
         for (int j = 0; j < ingredient_count; j++) {
-            cJSON* ingredient = cJSON_GetArrayItem(ingredients, j);
+            cJSON *ingredient = cJSON_GetArrayItem(ingredients, j);
             if (ingredient == NULL || !cJSON_IsObject(ingredient)) {
                 continue;
             }

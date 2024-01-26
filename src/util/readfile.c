@@ -8,8 +8,8 @@
  * @param filepath Path to the file
  * @return Pointer to the string containing the content
  */
-char* readfile(const char* filepath) {
-    FILE* file = fopen(filepath, "r");
+char *readfile(const char* filepath) {
+    FILE *file = fopen(filepath, "r");
     if (file == NULL) {
         clear();
         printw("Ein Fehler ist beim Lesen der Datei aufgetreten, die Datei scheint nicht zu existieren.\n");

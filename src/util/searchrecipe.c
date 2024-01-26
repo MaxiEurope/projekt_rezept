@@ -33,7 +33,7 @@ bool hasingredient(Recipe* recipe, char* ingredient) {
  * @param ingredients The array of ingredients
  * @param ingredient_count The number of ingredients
  */
-void searchrecipe(Recipe* recipes, int recipe_count, char** ingredients, int ingredient_count) {
+void searchrecipe(Recipe *recipes, int recipe_count, char **ingredients, int ingredient_count) {
     clear();
     printw("Suche nach Rezepten:\n");
     refresh();

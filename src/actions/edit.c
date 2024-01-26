@@ -101,7 +101,7 @@ bool edit(int *recipe_count, char *recipe_file) {
 
             recipes[recipe_index - 1].ingredient_count = ingredient_count;
 
-            recipes[recipe_index - 1].ingredients = (Ingredient *)malloc(ingredient_count * sizeof(Ingredient));
+            recipes[recipe_index - 1].ingredients = (Ingredient*)malloc(ingredient_count * sizeof(Ingredient));
             for (int i = 0; i < ingredient_count; i++) {
                 clear();
                 printw("Zutat %d:\n", i + 1);

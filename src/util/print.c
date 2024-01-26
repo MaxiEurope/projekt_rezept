@@ -12,7 +12,7 @@
  * @param recipes The array of recipes
  * @param count The number of recipes
  */
-void printrecipes(Recipe* recipes, int count, int recipe_index) {
+void printrecipes(Recipe *recipes, int count, int recipe_index) {
     clear();
     refresh();
     

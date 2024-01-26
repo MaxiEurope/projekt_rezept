@@ -19,18 +19,18 @@ typedef enum {
 } MealCategory;
 
 typedef struct {
-    char* name;
+    char *name;
     unsigned int quantity;
     Unit unit;
 } Ingredient;
 
 typedef struct {
-    char* name;
-    char* instructions;
+    char *name;
+    MealCategory category;
+    char *instructions;
     int ingredient_count;
     Ingredient* ingredients;
     int valid;
-    MealCategory category;
 } Recipe;
 
 #endif
