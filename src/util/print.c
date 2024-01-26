@@ -18,14 +18,14 @@ void printrecipes(Recipe* recipes, int count, int recipe_index) {
     for (int i = 0; i < count; i++) {
         if (i != recipe_index) { continue; }
         printw("[%d] Rezept:\n", i + 1);
-        printw("> Name: %s\n", recipes[i].name);
-        printw("> Anleitung: %s\n", recipes[i].instructions);
-        printw("> Zutaten:\n");
+        printw("  Name: %s\n", recipes[i].name);
+        printw("  Anleitung: %s\n", recipes[i].instructions);
+        printw("  Zutaten:\n");
         for (int j = 0; j < recipes[i].ingredient_count; j++) {
             int quantity = recipes[i].ingredients[j].quantity;
             char *unit = print_unit(recipes[i].ingredients[j].unit);
 
-            printw("> - %s: %d %s\n", uppercasefirst(recipes[i].ingredients[j].name), quantity, unit);
+            printw("  - %s: %d %s\n", uppercasefirst(recipes[i].ingredients[j].name), quantity, unit);
         }
         printw("\n");
         refresh();

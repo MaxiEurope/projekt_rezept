@@ -109,9 +109,15 @@ bool search(int *recipe_count, char *recipe_file) {
     for (int i = 0; i < ingredient_count; i++) {
         free(ingredients[i]);
     }
+
     free(ingredients);
     freerecipes(recipes, *recipe_count);
+
     free(json_data);
+
+    printw("Drücke eine beliebige Taste um fortzufahren.\n");
+    getch();
+    clear();
 
     return true;
 }

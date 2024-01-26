@@ -10,6 +10,26 @@
 #include "../util/recipe.h"
 #include "../util/recipeutil.h"
 
+static Unit get_unit(char *ingredient_name) {
+    int choice;
+    print_units();
+    scanw("%d", &choice);
+
+    switch (choice) {
+        case 1: return GRAM;
+        case 2: return MILLILITER;
+        case 3: return PIECE;
+        case 4: return TABLESPOON;
+        case 5: return TEASPOON;
+        case 6: return CUP;
+        default:
+            clear();
+            printw("Ungültige Auswahl/Einheit für diese Zutat: %s\n", ingredient_name);
+            refresh();
+            return get_unit(ingredient_name);
+    }
+}
+
 /**
  * @brief Adds a new recipe to the recipe list
  *
@@ -96,43 +116,7 @@ bool add(int *recipe_count, char *recipe_file) {
 
         new_recipe->ingredients[i].quantity = (unsigned int)ingredient_quantity;
 
-        Unit unit_choice;
-        int choice;
-        print_units();
-        scanw("%d", &choice);
-
-        switch (choice) {
-            case 1: {
-                unit_choice = GRAM;
-                break;
-            }
-            case 2: {
-                unit_choice = MILLILITER;
-                break;
-            }
-            case 3: {
-                unit_choice = PIECE;
-                break;
-            }
-            case 4: {
-                unit_choice = TABLESPOON;
-                break;
-            }
-            case 5: {
-                unit_choice = TEASPOON;
-                break;
-            }
-            case 6: {
-                unit_choice = CUP;
-                break;
-            }
-            default: {
-                clear();
-                printw("Ungültige Auswahl/Einheit für diese Zutat.\n");
-                refresh();
-                return false;
-            }
-        }
+        Unit unit_choice = get_unit(new_recipe->ingredients[i].name);
 
         new_recipe->ingredients[i].unit = unit_choice;
     }
@@ -150,26 +134,8 @@ bool add(int *recipe_count, char *recipe_file) {
     new_recipe->instructions = duplicatestr(instructions);
 
     addrecipe(new_recipe, recipe_count, recipe_file);
-    free(new_recipe);
+
+    freerecipes(new_recipe, 1);
 
     return true;
 }
-
-// Unit get_unit() {
-//     int choice;
-//     print_units();
-//     scanw("%d", &choice);
-
-//     switch (choice) {
-//         case 1: return GRAM;
-//         case 2: return MILLILITER;
-//         case 3: return PIECE;
-//         case 4: return TABLESPOON;
-//         case 5: return TEASPOON;
-//         case 6: return CUP;
-//         default:
-//             printw("Ungültige Auswahl/Einheit für diese Zutat.\n");
-//             refresh();
-//             return get_unit();
-//     }
-// }
