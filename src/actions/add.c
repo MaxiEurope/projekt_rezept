@@ -140,8 +140,8 @@ bool add(int *recipe_count, char *recipe_file) {
     clear();
     printw("Anleitung: ");
     refresh();
-    char instructions[1001];
-    if (scanw("%1000[^\n]", instructions) != 1) {
+    char instructions[10001];
+    if (scanw("%10000[^\n]", instructions) != 1) {
         clear();
         printw("Ungültige Eingabe.\n");
         refresh();
