@@ -17,6 +17,7 @@ void printrecipes(Recipe* recipes, int count, int recipe_index) {
     refresh();
     
     printw("[%d] Rezept:\n", recipe_index + 1);
+    printw("  Kategorie: %s\n", recipes[recipe_index].category);
     printw("  Name: %s\n", recipes[recipe_index].name);
     printw("  Anleitung: %s\n", recipes[recipe_index].instructions);
     printw("  Zutaten:\n");
