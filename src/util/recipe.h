@@ -10,6 +10,14 @@ typedef enum {
     CUP
 } Unit;
 
+typedef enum {
+    VORSPEISEN,
+    HAUPTGERICHTE,
+    DESSERTS,
+    VEGETARISCH,
+    VEGAN
+} MealCategory;
+
 typedef struct {
     char* name;
     unsigned int quantity;
@@ -22,6 +30,7 @@ typedef struct {
     int ingredient_count;
     Ingredient* ingredients;
     int valid;
+    MealCategory category;
 } Recipe;
 
 #endif
