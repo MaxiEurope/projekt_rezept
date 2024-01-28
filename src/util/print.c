@@ -17,7 +17,7 @@ void printrecipes(Recipe *recipes, int count, int recipe_index) {
     refresh();
     
     printw("[%d] Rezept:\n", recipe_index + 1);
-    printw("  Kategorie: %s\n", recipes[recipe_index].category);
+    printw("  Kategorie: %s\n", print_category(recipes[recipe_index].category));
     printw("  Name: %s\n", recipes[recipe_index].name);
     printw("  Anleitung: %s\n", recipes[recipe_index].instructions);
     printw("  Zutaten:\n");
@@ -31,10 +31,10 @@ void printrecipes(Recipe *recipes, int count, int recipe_index) {
 }
 
 /**
- * @brief Returns a string representation of the given unit.
+ * @brief Enum Unit to string
  *
- * @param unit The unit to be converted to a string.
- * @return A string representation of the unit.
+ * @param unit The unit to be converted to a string
+ * @return String of the unit
  */
 char* print_unit(Unit unit) {
     switch (unit) {
@@ -45,6 +45,23 @@ char* print_unit(Unit unit) {
         case TEASPOON:   return "teaspoon";
         case CUP:        return "cup";
         default:         return "unknown";
+    }
+}
+
+/**
+ * @brief Enum MealCategory to string
+ *
+ * @param category The MealCategory value to be converted
+ * @return String of the MealCategory
+ */
+char* print_category(MealCategory category) {
+    switch (category) {
+        case VORSPEISEN:    return "vorspeisen";
+        case HAUPTGERICHTE: return "hauptgerichte";
+        case DESSERTS:      return "desserts";
+        case VEGETARISCH:   return "vegetarisch";
+        case VEGAN:         return "vegan";
+        default:            return "unknown";
     }
 }
 

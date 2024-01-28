@@ -51,6 +51,9 @@ Recipe *parserecipe(const char* json_data, int recipe_count) {
 
         recipes[i].name = duplicatestr(name->valuestring);
         recipes[i].category = string_to_category(category->valuestring);
+        printw("%s\n", recipes[i].category);
+        refresh();
+        getch();
         recipes[i].instructions = duplicatestr(instructions->valuestring);
 
         int ingredient_count = cJSON_GetArraySize(ingredients);
