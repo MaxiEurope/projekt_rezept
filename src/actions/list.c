@@ -20,6 +20,7 @@ bool list(int *recipe_count, char *recipe_file) {
     printw("Welches Rezept möchtest du ansehen?\n");
 
     for (int i = 0; i < *recipe_count; i++) {
+        printw("%d\n", recipes[i].valid);
         printw("[%d] %s\n", i + 1, recipes[i].name);
     }
     printw("Auswahl: ");

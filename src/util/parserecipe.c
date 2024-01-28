@@ -45,15 +45,12 @@ Recipe *parserecipe(const char* json_data, int recipe_count) {
         cJSON *instructions = cJSON_GetObjectItem(recipe, "instructions");
 
         if (name == NULL || !cJSON_IsString(name) || category == NULL || !cJSON_IsString(category) || ingredients == NULL || !cJSON_IsArray(ingredients) || instructions == NULL || !cJSON_IsString(instructions)) {
-            recipes[i].valid = 0;
+            recipes[i].valid = 0; // let user know there is an invalid recipe, handle this better
             continue;
         }
 
         recipes[i].name = duplicatestr(name->valuestring);
         recipes[i].category = string_to_category(category->valuestring);
-        printw("%s\n", recipes[i].category);
-        refresh();
-        getch();
         recipes[i].instructions = duplicatestr(instructions->valuestring);
 
         int ingredient_count = cJSON_GetArraySize(ingredients);
