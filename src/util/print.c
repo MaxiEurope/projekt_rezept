@@ -68,6 +68,15 @@ Unit string_to_unit(const char* str) {
     else if (strcmp(str, "tablespoon") == 0) return TABLESPOON;
     else if (strcmp(str, "teaspoon") == 0) return TEASPOON;
     else if (strcmp(str, "cup") == 0) return CUP;
-    else return GRAM; // assume gram as default
+    else return GRAM; // default gram
+}
+
+MealCategory string_to_category(const char* str) {
+    if (strcmp(str, "vorspeisen") == 0) return VORSPEISEN;
+    else if (strcmp(str, "hauptgerichte") == 0) return HAUPTGERICHTE;
+    else if (strcmp(str, "desserts") == 0) return DESSERTS;
+    else if (strcmp(str, "vegetarisch") == 0) return VEGETARISCH;
+    else if (strcmp(str, "vegan") == 0) return VEGAN;
+    else return HAUPTGERICHTE;
 }
 

@@ -11,6 +11,7 @@ void printrecipes(Recipe *recipes, int count, int recipe_index);
 char *print_unit(Unit unit);
 void print_units();
 Unit string_to_unit(const char *str);
+MealCategory string_to_category(const char* str);
 char *readfile(const char *filepath);
 void searchrecipe(Recipe *recipes, int recipe_count, char **ingredients, int ingredient_count);
 

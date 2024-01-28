@@ -44,13 +44,13 @@ Recipe *parserecipe(const char* json_data, int recipe_count) {
         cJSON *ingredients = cJSON_GetObjectItem(recipe, "ingredients");
         cJSON *instructions = cJSON_GetObjectItem(recipe, "instructions");
 
-        if (name == NULL || !cJSON_IsString(name) || ingredients == NULL || !cJSON_IsArray(ingredients) || instructions == NULL || !cJSON_IsString(instructions)) {
+        if (name == NULL || !cJSON_IsString(name) || category == NULL || !cJSON_IsString(category) || ingredients == NULL || !cJSON_IsArray(ingredients) || instructions == NULL || !cJSON_IsString(instructions)) {
             recipes[i].valid = 0;
             continue;
         }
 
         recipes[i].name = duplicatestr(name->valuestring);
-        recipes[i].category = duplicatestr(category->valuestring);
+        recipes[i].category = string_to_category(category->valuestring);
         recipes[i].instructions = duplicatestr(instructions->valuestring);
 
         int ingredient_count = cJSON_GetArraySize(ingredients);
