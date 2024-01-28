@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "recipe.h"
 #include "str/strfunctions.h"
 #include <ncurses.h>
@@ -17,7 +18,8 @@ void printrecipes(Recipe *recipes, int count, int recipe_index) {
     refresh();
     
     printw("[%d] Rezept:\n", recipe_index + 1);
-    printw("  Kategorie: %s\n", print_category(recipes[recipe_index].category));
+    char *category = uppercasefirst(duplicatestr(print_category(recipes[recipe_index].category)));
+    printw("  Kategorie: %s\n", category);
     printw("  Name: %s\n", recipes[recipe_index].name);
     printw("  Anleitung: %s\n", recipes[recipe_index].instructions);
     printw("  Zutaten:\n");
@@ -27,6 +29,7 @@ void printrecipes(Recipe *recipes, int count, int recipe_index) {
 
         printw("  - %s: %d %s\n", uppercasefirst(recipes[recipe_index].ingredients[j].name), quantity, unit);
     }
+    free(category);
     refresh();
 }
 
