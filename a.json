@@ -1,6 +1,6 @@
 [{
 		"name":	"Spaghetti Carbonara",
-        "category": "vegan",
+        "caategory": "vegan",
 		"ingredients":	[{
 				"name":	"spaghetti",
 				"quantity":	400,
