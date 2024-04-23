@@ -81,6 +81,18 @@ void print_units() {
     printw("6. Tasse\n");
 }
 
+/**
+ * @brief Prints the available categories to choose from
+ */
+void print_categories() {
+    printw("Wähle eine Kategorie:\n");
+    printw("1. Vorspeisen\n");
+    printw("2. Hauptgerichte\n");
+    printw("3. Desserts\n");
+    printw("4. Vegetarisch\n");
+    printw("5. Vegan\n");
+}
+
 Unit string_to_unit(const char* str) {
     if (strcmp(str, "gram") == 0) return GRAM;
     else if (strcmp(str, "milliliter") == 0) return MILLILITER;

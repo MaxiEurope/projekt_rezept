@@ -10,6 +10,7 @@ Recipe *parserecipe(const char *json_data, int recipe_count);
 void printrecipes(Recipe *recipes, int count, int recipe_index);
 char *print_unit(Unit unit);
 void print_units();
+void print_categories();
 char* print_category(MealCategory category);
 Unit string_to_unit(const char *str);
 MealCategory string_to_category(const char* str);

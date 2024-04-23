@@ -30,6 +30,25 @@ static Unit get_unit(char *ingredient_name) {
     }
 }
 
+static MealCategory get_mealcategory(char *recipe_name) {
+    int choice;
+    print_categories();
+    scanw("%d", &choice);
+
+    switch (choice) {
+        case 1: return VORSPEISEN;
+        case 2: return HAUPTGERICHTE;
+        case 3: return DESSERTS;
+        case 4: return VEGETARISCH;
+        case 5: return VEGAN;
+        default:
+            clear();
+            printw("Ungültige Auswahl/Kategorie für dieses Rezept: %s\n", recipe_name);
+            refresh();
+            return get_mealcategory(recipe_name);
+    }
+}
+
 /**
  * @brief Adds a new recipe to the recipe list
  *
@@ -50,6 +69,9 @@ bool add(int *recipe_count, char *recipe_file) {
         return false;
     }
     new_recipe->name = duplicatestr(name);
+
+    MealCategory category_choice = get_mealcategory(new_recipe->name);
+    new_recipe->category = category_choice;
 
     clear();
     printw("Anzahl Zutaten: ");
@@ -113,11 +135,9 @@ bool add(int *recipe_count, char *recipe_file) {
             refresh();
             return false;
         }
-
         new_recipe->ingredients[i].quantity = (unsigned int)ingredient_quantity;
 
         Unit unit_choice = get_unit(new_recipe->ingredients[i].name);
-
         new_recipe->ingredients[i].unit = unit_choice;
     }
 
