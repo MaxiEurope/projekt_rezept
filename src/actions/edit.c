@@ -52,20 +52,21 @@ bool edit(int *recipe_count, char *recipe_file) {
 
     printw("Was möchtest du bearbeiten?\n");
     printw("1. Name\n");
-    printw("2. Zutaten\n");
+    printw("2. Kategorie\n");
     printw("3. Anleitung\n");
+    printw("4. Zutaten\n");
     printw("Auswahl: ");
     refresh();
 
     int choice;
     if (scanw("%1d%c", &choice) != 1) {
         clear();
-        printw("Ungültige Eingabe. Bitte nur eine Zahl (1-3) eingeben.\n");
+        printw("Ungültige Eingabe. Bitte nur eine Zahl (1-4) eingeben.\n");
         refresh();
         return false;
-    } else if (choice < 1 || choice > 3) {
+    } else if (choice < 1 || choice > 4) {
         clear();
-        printw("Bitte nur eine Zahl zwischen 1 und 3 eingeben.\n");
+        printw("Bitte nur eine Zahl zwischen 1 und 4 eingeben.\n");
         refresh();
         return false;
     }
@@ -85,10 +86,31 @@ bool edit(int *recipe_count, char *recipe_file) {
                 return false;
             }
 
-            recipes[recipe_index - 1].name = duplicatestr(name);
+            recipes[recipe_index - 1].name = lowercase(duplicatestr(name));
             break;
         }
         case 2: {
+            printw("Neue Kategorie: ");
+
+            MealCategory category_choice = get_mealcategory(recipes[recipe_index - 1].name);
+            recipes[recipe_index - 1].category = category_choice;
+            break;
+        }
+        case 3: {
+            printw("Neue Anleitung: ");
+            refresh();
+            char instructions[10001];
+            if (scanw("%10000[^\n]", instructions) != 1) {
+                clear();
+                printw("Ungültige Eingabe.\n");
+                refresh();
+                return false;
+            }
+
+            recipes[recipe_index - 1].instructions = duplicatestr(instructions);
+            break;
+        }
+        case 4: {
             printw("Neue Anzahl an Zutaten: ");
             refresh();
             int ingredient_count;
@@ -152,63 +174,15 @@ bool edit(int *recipe_count, char *recipe_file) {
                     refresh();
                     return false;
                 }
-
                 recipes[recipe_index - 1].ingredients[i].quantity = (unsigned int)ingredient_quantity;
 
-                Unit unit_choice;
-                int choice;
-                print_units();
-                scanw("%d", &choice);
-
-                switch (choice) {
-                    case 1: {
-                        unit_choice = GRAM;
-                        break;
-                    }
-                    case 2: {
-                        unit_choice = MILLILITER;
-                        break;
-                    }
-                    case 3: {
-                        unit_choice = PIECE;
-                        break;
-                    }
-                    case 4: {
-                        unit_choice = TABLESPOON;
-                        break;
-                    }
-                    case 5: {
-                        unit_choice = TEASPOON;
-                        break;
-                    }
-                    case 6: {
-                        unit_choice = CUP;
-                        break;
-                    }
-                    default: {
-                        clear();
-                        printw("Ungültige Auswahl/Einheit für diese Zutat.\n");
-                        refresh();
-                        return false;
-                    }
-                }
-
-                recipes[recipe_index - 1].ingredients[i].unit = unit_choice;
-            }
-            break;
-        }
-        case 3: {
-            printw("Neue Anleitung: ");
-            refresh();
-            char instructions[10001];
-            if (scanw("%10000[^\n]", instructions) != 1) {
                 clear();
-                printw("Ungültige Eingabe.\n");
+                printw("%s.\n", recipes[recipe_index - 1].ingredients[i].name);
                 refresh();
-                return false;
-            }
+                Unit unit_choice = get_unit(recipes[recipe_index - 1].ingredients[i].name);
+                recipes[recipe_index - 1].ingredients[i].unit = unit_choice;
 
-            recipes[recipe_index - 1].instructions = duplicatestr(instructions);
+            }
             break;
         }
         default: {
@@ -255,10 +229,13 @@ bool edit(int *recipe_count, char *recipe_file) {
     }
 
     cJSON_DeleteItemFromObject(json_recipe, "name");
+    cJSON_DeleteItemFromObject(json_recipe, "category");
     cJSON_DeleteItemFromObject(json_recipe, "ingredients");
     cJSON_DeleteItemFromObject(json_recipe, "instructions");
 
     cJSON_AddStringToObject(json_recipe, "name", recipes[recipe_index - 1].name);
+    cJSON_AddStringToObject(json_recipe, "category", print_category(recipes[recipe_index - 1].category));
+    cJSON_AddStringToObject(json_recipe, "instructions", recipes[recipe_index - 1].instructions);
 
     cJSON *json_new_ingredients = cJSON_CreateArray();
     for (int i = 0; i < recipes[recipe_index - 1].ingredient_count; i++) {
@@ -270,7 +247,6 @@ bool edit(int *recipe_count, char *recipe_file) {
     }
     cJSON_AddItemToObject(json_recipe, "ingredients", json_new_ingredients);
 
-    cJSON_AddStringToObject(json_recipe, "instructions", recipes[recipe_index - 1].instructions);
 
     char *updated_json_data = cJSON_Print(json_recipes);
     if (updated_json_data == NULL) {

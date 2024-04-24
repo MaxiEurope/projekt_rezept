@@ -5,6 +5,8 @@
 
 void addrecipe(Recipe *new_recipe, int *recipe_count, char *recipe_file);
 void freerecipes(Recipe *recipes, int count);
+MealCategory get_mealcategory(char *recipe_name);
+Unit get_unit(char *ingredient_name);
 void getrecipecount(int *recipe_count, char *recipe_file);
 Recipe *parserecipe(const char *json_data, int recipe_count);
 void printrecipes(Recipe *recipes, int count, int recipe_index);

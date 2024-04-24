@@ -19,8 +19,8 @@ void printrecipes(Recipe *recipes, int count, int recipe_index) {
     
     printw("[%d] Rezept:\n", recipe_index + 1);
     char *category = uppercasefirst(duplicatestr(print_category(recipes[recipe_index].category)));
-    printw("  Kategorie: %s\n", category);
     printw("  Name: %s\n", recipes[recipe_index].name);
+    printw("  Kategorie: %s\n", category);
     printw("  Anleitung: %s\n", recipes[recipe_index].instructions);
     printw("  Zutaten:\n");
     for (int j = 0; j < recipes[recipe_index].ingredient_count; j++) {
