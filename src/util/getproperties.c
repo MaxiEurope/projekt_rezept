@@ -6,6 +6,7 @@
 MealCategory get_mealcategory(char *recipe_name) {
     int choice;
     print_categories();
+    printw("Kategorie: ");
     scanw("%d", &choice);
 
     switch (choice) {
@@ -25,6 +26,7 @@ MealCategory get_mealcategory(char *recipe_name) {
 Unit get_unit(char *ingredient_name) {
     int choice;
     print_units();
+    printw("Einheit: ");
     scanw("%d", &choice);
 
     switch (choice) {

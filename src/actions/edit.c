@@ -90,8 +90,6 @@ bool edit(int *recipe_count, char *recipe_file) {
             break;
         }
         case 2: {
-            printw("Neue Kategorie: ");
-
             MealCategory category_choice = get_mealcategory(recipes[recipe_index - 1].name);
             recipes[recipe_index - 1].category = category_choice;
             break;
