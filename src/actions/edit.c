@@ -59,7 +59,7 @@ bool edit(int *recipe_count, char *recipe_file) {
     refresh();
 
     int choice;
-    if (scanw("%1d%c", &choice) != 1) {
+    if (scanw("%1d", &choice) != 1) {
         clear();
         printw("Ungültige Eingabe. Bitte nur eine Zahl (1-4) eingeben.\n");
         refresh();
